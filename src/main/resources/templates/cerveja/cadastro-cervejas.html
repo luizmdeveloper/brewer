@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="'layout/dashbord'">
+<head></head>
+<body>
+	<section layout:fragment="conteudo">
+		<div class="page-header">
+			<div class="container-fluid">
+				<h1>
+					Cadastro de cerveja
+				</h1>
+			</div>
+		</div>
+			
+		<div class="container-fluid">
+			
+			<!--  <div class="alert  alert-danger  alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<i class="fa  fa-exclamation-circle"></i> Já existe um produto com o nome informado.
+				</div>  -->
+			
+			<form method="POST" th:object="${cerveja}" class="form-vertical  js-form-loading">
+				<div class="row">				
+					<div class="col-sm-3  form-group">
+						<label for="input-cerveja-sku">Sku</label>
+						<input id="input-cerveja-sku" type="text" class="form-control"/>
+					</div>
+				
+					<div class="col-sm-9  form-group">
+						<label for="input-cerveja-nome">Nome</label>
+						<input id="input-cerveja-nome" type="text" class="form-control"/>
+					</div>
+				</div>
+					
+				<div class="form-group">
+					<label for="input-cerveja-descricao">Descrição</label>
+					<textarea id="input-cerveja-descricao" rows="3" class="form-control"></textarea>
+				</div>
+					
+				<div class="row">
+					<div class="col-sm-3  form-group">
+							<label for="input-cerveja-estilo">Estilo</label>
+							<div class="bw-field-aciton">
+								<select id="input-cerveja-estilo" class="form-control">
+									<option value="">Selecione um estilo</option>
+								</select>
+							
+								<div class="bw-field-action__icon">
+									<a href="#" data-toggle="modal" data-target="#modalCadastroRapidoEstilo">
+										<i class="glyphicon glyphicon-plus-sign  bw-field-action__iconlarge"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-sm-3  form-group">
+							<label for="input-cerveja-sabor">Sabor</label>
+							<select id="input-cerveja-savor" class="form-control">
+								<option value="">Selecione um sabor</option>
+							</select>
+						</div>
+						
+						<div class="col-sm-3  form-group">
+							<label for="input-cerverja-teoracolico">Teor alcolico</label>
+							<div class="input-group">
+								<input id="input-cerverja-teoracolico" type="text" class="form-control  js-decimal"/>
+								<div class="input-group-addon">%</div>
+							</div>
+						</div>
+						
+						<div class="col-lg-3  col-sm-6  form-group">
+							<label for="input-cerverja-orgim">Origem</label>
+							<div>
+								<div class="radio  radio-inline">
+									<input type="radio" name="orgiem"/>
+									<label>Nacional</label>
+								</div>
+								<div class="radio  radio-inline">
+									<input type="radio" name="orgiem"/>
+									<label>Importada</label>
+								</div>
+							</div>
+						</div>
+											
+					</div>
+			
+					<div class="row">
+						<div class="col-sm-3  form-group">
+							<label for="input-cerverja-valor">Valor</label>
+								<div class="input-group">
+									<div class="input-group-addon">R$</div>													
+									<input id="input-cerverja-valor" type="text" class="form-control  js-decimal"/>
+								</div>
+						</div>
+						
+						<div class="col-sm-3  form-group">
+							<label for="input-cerverja-comissao">Comissão</label>
+							<div class="input-group">																					
+								<input id="input-cerverja-comissao" type="text" class="form-control  js-decimal"/>
+								<div class="input-group-addon">%</div>
+							</div>
+						</div>
+						
+						<div class="col-sm-3  form-group">
+							<label for="input-cerveja-estoque">Estoque</label>
+							<input id="input-cerveja-estoque" type="text" class="form-control  js-plain"/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<button class="btn  btn-primary" type="submit">Salvar</button>
+					</div>
+			
+				</form>
+			</div>
+
+			<div th:replace="estilo/cadastro-rapido-estilo  :: modal"></div>
+	
+		</section>	
+			
+
+<!-- 		<div th:each="erro : ${#fields.detailedErrors('${cerveja.*}')}">
+			<span th:text="${erro.message}"></span>
+		</div>
+		
+		<form method="POST" th:object="${cerveja}">
+			<span th:text="${mensagem}"></span>
+			<br>
+			
+			<label for="sku">Sku</label>
+			<input id="sku" type="text" th:field="*{sku}">			
+			<br>
+			
+			<label for="nome">Nome</label>
+			<input id="nome" type="text" th:field="*{nome}">
+			<br>
+			
+			<label for="descricao">Descrição</label>
+			<textarea id="descricao" th:field="*{descricao}" rows=3 cols=30></textarea>
+			<br>		
+			
+			<input type="submit" value="Salvar">
+		</form>  -->
+		
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="'layout/dashbord'">
+<head></head>
+<body>
+<section layout:fragment="conteudo">
+	<div class="page-header">
+		<div class="container-fluid">
+			<h1>
+				Cadastro de cliente
+			</h1>
+		</div>
+	</div>
+	<div class="container-fluid">
+	
+		<form method="POST" th:object="${cliente}" class="form-vertical  js-form-loading">
+			<div class="row">				
+				<div class="col-sm-12  form-group">
+					<label for="input-cliente-nome">Nome</label>
+					<input id="input-cliente-nome" type="text" class="form-control"/>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-4 form-group">
+					<label for="input-cliente-tipo">Pessoa</label>
+					<div>
+						<div class="radio  radio-inline">
+							<input type="radio" name="orgiem"/>
+							<label>Física</label>
+						</div>
+						<div class="radio  radio-inline">
+							<input type="radio" name="orgiem"/>
+							<label>Jurídica</label>
+						</div>
+					</div>
+				</div>			
+				<div class="col-sm-8  form-group">					
+					<label for="input-cliente-cpfcnpj">CPF/CNPJ</label>
+					<input id="input-cliente-cpfcnpj" type="text" class="form-control"/>
+				</div>			
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-4  form-group">					
+					<label for="input-cliente-telefone">Telefone</label>
+					<input id="input-cliente-telefone" type="text" class="form-control"/>
+				</div>			
+				<div class="col-sm-8  form-group">					
+					<label for="input-cliente-email">email</label>
+					<input id="input-cliente-email" type="text" class="form-control"/>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-4  form-group">					
+					<label for="input-cliente-logradouro">Logradouro</label>
+					<input id="input-cliente-logradouro" type="text" class="form-control"/>
+				</div>
+				<div class="col-sm-4  form-group">					
+					<label for="input-cliente-numero">Número</label>
+					<input id="input-cliente-numero" type="text" class="form-control"/>
+				</div>
+				<div class="col-sm-4  form-group">					
+					<label for="input-cliente-complemento">Complemento</label>
+					<input id="input-cliente-complemento" type="text" class="form-control"/>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-4  form-group">					
+					<label for="input-cliente-cep">CEP</label>
+					<input id="input-cliente-cep" type="text" class="form-control"/>
+				</div>
+				<div class="col-sm-4  form-group">					
+					<label for="input-cliente-estado">Estado</label>
+					<select id="input-cliente-estado" class="form-control">
+						<option value="">Selecione um estado</option>
+					</select>
+				</div>
+				<div class="col-sm-4  form-group">					
+					<label for="input-cliente-cidade">Cidade</label>
+					<select id="input-cliente-cidade" class="form-control">
+						<option value="">Selecione uma cidade</option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<button class="btn  btn-primary" type="submit">Salvar</button>
+			</div>
+						
+		</form>	
+	</div>	
+</section>
+
+</body>
+</html>

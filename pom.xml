@@ -1,0 +1,146 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	
+	<groupId>com.luizmario</groupId>	
+	<artifactId>brewer</artifactId>
+	<version>1.0.0-SNAPSHOT</version>	
+	<packaging>war</packaging>
+	
+	<properties>
+		<project.build.sourceEnconding>UTF-8</project.build.sourceEnconding>
+		<project.reporting.outputEnconding>UTF-8</project.reporting.outputEnconding>
+		
+		<failOnMissingWebXml>false</failOnMissingWebXml>
+		<java.version>1.8</java.version>
+		
+		<maven-compiler-pluging.version>3.2</maven-compiler-pluging.version>
+		
+		<!-- Spring framework -->
+		<spring-framework.version>4.3.0.RELEASE</spring-framework.version>
+		
+		<!-- Servlet API -->	
+		<servelt-api.version>3.1.0</servelt-api.version>
+		
+		<!-- Thymeleaf -->
+		<thymeleaf.version>3.0.0.RELEASE</thymeleaf.version>
+		
+		<!-- Bean validator / hibernate validator -->
+		<hibernate-validator.version>5.2.5.Final</hibernate-validator.version>
+		
+		<!-- thymeleaf layout dialect -->
+		<thymeleaf-layout-dialect.version>2.0.0</thymeleaf-layout-dialect.version>
+		
+		<!-- logging -->
+		<logging.version>2.6</logging.version>		
+		<jcl-over-slf4j.version>1.7.21</jcl-over-slf4j.version>
+		
+	</properties>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-pluging.version}</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-framework-bom</artifactId>
+				<version>${spring-framework.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	
+	<dependencies>
+		<!-- Spring WEB MVC -->
+		<dependency>
+			<groupId>org.springframework</groupId> 
+			<artifactId>spring-webmvc</artifactId>
+			<scope>compile</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId> 
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>		
+		</dependency>
+		
+		<!-- Servelt API -->
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+		    <version>${servelt-api.version}</version>
+		    <scope>provided</scope>
+		</dependency>
+				
+		<!-- Thymeleaf -->
+		<dependency>
+			<groupId>org.thymeleaf</groupId>
+			<artifactId>thymeleaf</artifactId>
+			<version>${thymeleaf.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.thymeleaf</groupId>
+			<artifactId>thymeleaf-spring4</artifactId>
+			<version>${thymeleaf.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		<!-- Bean validator / hibernate validator -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-validator</artifactId>
+		    <version>${hibernate-validator.version}</version>
+		    <scope>compile</scope>
+		</dependency>
+		
+		<!-- thymeleaf layout dialect -->
+		<dependency>
+			<groupId>nz.net.ultraq.thymeleaf</groupId>
+		    <artifactId>thymeleaf-layout-dialect</artifactId>
+		    <version>${thymeleaf-layout-dialect.version}</version>
+		    <scope>compile</scope>
+		</dependency>
+		
+		<!-- logging  -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-slf4j-impl</artifactId>
+		    <version>${logging.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-api</artifactId>
+		    <version>${logging.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-core</artifactId>
+		    <version>${logging.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.slf4j</groupId>
+		    <artifactId>jcl-over-slf4j</artifactId>
+		    <version>${jcl-over-slf4j.version}</version>
+		</dependency>
+		
+	</dependencies>
+	
+</project>

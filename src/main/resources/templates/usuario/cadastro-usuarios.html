@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="'layout/dashbord'">
+<head>
+	<link rel="stylesheet" type="text/css" href="/brewer/stylesheets/vendors/bootstrap-switch.min.css" th:href="@{/stylesheets/vendors/bootstrap-switch.min.css}"/>
+</head>
+<body>
+<section layout:fragment="conteudo">
+	<div class="page-header">
+		<div class="container-fluid">
+			<h1>
+				Cadastro de usuário
+			</h1>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<form method="POST" th:object="${usuario}" class="form-vertical  js-form-loading">
+			<div class="row">				
+				<div class="col-sm-12  form-group">
+					<label for="input-usuario-nome">Nome</label>
+					<input id="input-usuario-nome" type="text" class="form-control"/>
+				</div>
+			</div>
+			<div class="row">				
+				<div class="col-sm-6  form-group">
+					<label for="input-usuario-email">e-mail</label>
+					<input id="input-usuario-email" type="text" class="form-control"/>
+				</div>
+				<div class="col-sm-4  form-group">
+					<label for="input-usuario-dtanascimento">Data nascimento</label>
+					<input id="input-usuario-dtanascimento" type="text" class="form-control"/>
+				</div>
+			</div>
+			<div class="row">				
+				<div class="col-sm-3  form-group">
+					<label for="input-usuario-senha">Senha</label>
+					<input id="input-usuario-senha" type="password" class="form-control"/>
+				</div>
+				<div class="col-sm-3  form-group">
+					<label for="input-usuario-confirmacao-senha">Confirmação</label>
+					<input id="input-usuario-confirmacao-senha" type="password" class="form-control"/>
+				</div>
+				<div class="col-sm-4  form-group">
+					<label for="input-usuario-status" class="ontrol-label" >Status</label>
+					<div>
+						<input type="checkbox" class="js-status" data-on-text="Ativo" data-off-text="Inativo" data-off-color="danger"/>
+					</div>
+				</div>
+			</div>
+			<div class="row">									
+				<div class="col-sm-6  form-group">
+					<label class="control-label">Grupos</label> 
+					<div>
+  						<div class="checkbox  checkbox-inline"> 
+	    					<input type="checkbox"/><label>Administrador</label>
+    					</div>
+    					<div class="checkbox  checkbox-inline"> 
+	    					<input type="checkbox" /><label>Vendedor</label>
+    					</div>
+					</div>
+				</div>				
+			</div>
+			
+			<div class="form-group">
+				<button class="btn  btn-primary" type="submit">Salvar</button>
+			</div>
+			
+		</form>
+	</div>	
+</section>
+<th:block layout:fragment="javascripts-extra">
+	<script src="/javascripts/vendors/bootstrap-switch.min.js" th:src="@{/javascripts/vendors/bootstrap-switch.min.js}"></script>
+	<script>
+		$('.js-status').bootstrapSwitch();
+	</script>
+</th:block>
+</body>
+</html>
