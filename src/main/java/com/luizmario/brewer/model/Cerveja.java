@@ -1,4 +1,4 @@
-package br.luizmario.brewer.model;
+package com.luizmario.brewer.model;
 
 import javax.validation.constraints.Size;
 
