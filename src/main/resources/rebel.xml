@@ -13,11 +13,6 @@
 
 	<web>
 		<link target="/">
-			<dir name="/home/luizmario/workspace/brewer/target/m2e-wtp/web-resources">
-				<exclude name="/"/>
-			</dir>
-		</link>
-		<link target="/">
 			<dir name="/home/luizmario/workspace/brewer/src/main/webapp">
 			</dir>
 		</link>
