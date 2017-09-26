@@ -16,7 +16,9 @@
 		<java.version>1.8</java.version>
 		
 		<maven-compiler-pluging.version>3.2</maven-compiler-pluging.version>
-		
+		<flyway-maven-plugin.version>4.0.2</flyway-maven-plugin.version>
+		<mysql-connector-java.version>5.1.44</mysql-connector-java.version>	
+			
 		<!-- Spring framework -->
 		<spring-framework.version>4.3.0.RELEASE</spring-framework.version>
 		
@@ -39,6 +41,9 @@
 		<!-- JPA/Hibernate -->
 		<hibernate.version>5.1.0.Final</hibernate.version>
 		
+		<!-- JPA/Hibernate -->
+		<spring-data-jpa.version>1.10.2.RELEASE</spring-data-jpa.version>
+		
 	</properties>
 	
 	<build>
@@ -49,6 +54,14 @@
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
+				</configuration>
+			</plugin>			
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>${flyway-maven-plugin.version}</version>
+				<configuration>
+					<driver>com.mysql.jdbc.Driver</driver>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -151,7 +164,7 @@
 		    <version>${hibernate.version}</version>
 		    <scope>compile</scope>		    
 		</dependency>
-	
+		
 		<!-- Hibernate support java 8 -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -159,6 +172,21 @@
 		    <version>${hibernate.version}</version>
 		    <scope>compile</scope>		    
 		</dependency>
+
+		<!-- MYSQL driver connector  -->		
+		<dependency>
+		    <groupId>mysql</groupId>
+		    <artifactId>mysql-connector-java</artifactId>
+		    <version>${mysql-connector-java.version}</version>
+		    <scope>provided</scope>
+		</dependency>
+	
+		<!-- Spring data JPA   -->
+		<dependency>
+	        <groupId>org.springframework.data</groupId>
+	        <artifactId>spring-data-jpa</artifactId>
+	        <version>${spring-data-jpa.version}</version>
+	    </dependency>
 		
 	</dependencies>
 	

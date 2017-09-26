@@ -8,6 +8,7 @@
 	</Appenders>
 	
 	<Loggers>
+		<logger name="org.hibernate.SQL" level="DEBUG"></logger>
 		<Root level="error">
 	      <AppenderRef ref="Console"/>
 	    </Root>	

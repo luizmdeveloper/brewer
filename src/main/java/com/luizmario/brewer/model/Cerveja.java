@@ -45,6 +45,9 @@ public class Cerveja {
 	
 	@Enumerated(EnumType.STRING)
 	private Origem origem;
+	
+	@Column(name="quantidade_estoque")
+	private Integer quantidadeEstoque;
 
 	@ManyToOne
 	@JoinColumn(name="codigo_estilo")
