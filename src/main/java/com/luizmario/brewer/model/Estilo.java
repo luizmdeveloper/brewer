@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 @Table(name="estilo")
 public class Estilo {
@@ -17,6 +19,7 @@ public class Estilo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 	
+	@NotBlank(message="Nome é obrigatório")
 	private String nome;
 	
 	@OneToMany(mappedBy = "estilo")

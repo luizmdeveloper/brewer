@@ -12,9 +12,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
+
+import com.luizmario.brewer.validation.SKU;
 
 @Entity
 @Table(name="cerveja")
@@ -24,31 +29,44 @@ public class Cerveja {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 	
+	@SKU
 	@NotBlank(message="Sku é obrigatório")
 	private String sku;
 	
 	@NotBlank(message="Nome é obrigatório")
 	private String nome;
 	
+	@NotBlank(message="Descrição é obrigatória")
 	@Size(min= 1, max= 50, message="O tamanho da descrição deve está entre 1 e 50")
 	private String descricao;
 	
+	@NotNull(message="Valor é obrigatório")
+	@DecimalMax(value="99999999.99", message="Valor máximo deve ser menor ou igual a R$ 99.999.999,99")
+	@DecimalMin(value="0.50", message="Valor minimo deve ser maior ou igual a R$ 0,50")
 	private BigDecimal valor;
 	
-	@Column(name="teor_alcoolico")
+	@NotNull(message="Teor alcoolico é obrigatório")
+	@DecimalMax(value="100.0", message="Percentual deve ser menor ou igual a 100")
+	@Column(name="teor_alcoolico")	
 	private BigDecimal teorAlcoolico;
 	
+	@NotNull(message="Comissão é obrigatório")
+	@DecimalMax(value="100.0", message="Comissão deve ser menor ou igual a 100")
 	private BigDecimal comissao;
 	
+	@NotNull(message="Sabor é obrigatório")
 	@Enumerated(EnumType.STRING)
 	private Sabor sabor;
 	
+	@NotNull(message="Origem é obrigatório")
 	@Enumerated(EnumType.STRING)
 	private Origem origem;
 	
+	@NotNull(message="Estoque é obrigatório")
 	@Column(name="quantidade_estoque")
 	private Integer quantidadeEstoque;
 
+	@NotNull(message="Estilo é obrigatório")
 	@ManyToOne
 	@JoinColumn(name="codigo_estilo")
 	private Estilo estilo;

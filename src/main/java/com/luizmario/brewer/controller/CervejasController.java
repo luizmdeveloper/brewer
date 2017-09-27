@@ -17,13 +17,16 @@ import com.luizmario.brewer.model.Cerveja;
 import com.luizmario.brewer.model.Origem;
 import com.luizmario.brewer.model.Sabor;
 import com.luizmario.brewer.respository.EstilosRepository;
+import com.luizmario.brewer.service.CervejaService;
 
 @Controller
 public class CervejasController {
-	
-	
+		
 	@Autowired
 	private EstilosRepository estilosRepository;
+	
+	@Autowired
+	private CervejaService cervejaService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(CervejasController.class);
 	
@@ -39,17 +42,13 @@ public class CervejasController {
 	@RequestMapping(value = "cerveja/novo", method = RequestMethod.POST)
 	public ModelAndView cadastrar(@Valid Cerveja cerveja, BindingResult result, Model model, RedirectAttributes attributes){
 		
-//		if (result.hasErrors()){			
-//			return novo(cerveja);
-//		}
+		if (result.hasErrors()){			
+			return novo(cerveja);
+		}
 		
+		cervejaService.salvar(cerveja);		
 		attributes.addFlashAttribute("mensagem", "Cerveja cadastrada com sucesso!");
-		System.out.println(" >>>> sku: " + cerveja.getSku());
-		System.out.println(" >>>> nome: " + cerveja.getNome());
-		System.out.println(" >>>> descrição: " + cerveja.getDescricao());
-		System.out.println(" >>>> sabor: " + cerveja.getSabor());
-		System.out.println(" >>>> origem: " + cerveja.getOrigem());
-		System.out.println(" >>>> estilo: " + cerveja.getEstilo().getCodigo());
+		
 		return new ModelAndView("redirect:/cerveja/novo");
 	}
 

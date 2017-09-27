@@ -6,13 +6,14 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import com.luizmario.brewer.config.JPAConfig;
+import com.luizmario.brewer.config.ServicesConfig;
 import com.luizmario.brewer.config.WebConfig;
 
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {		
-		return new Class<?>[] {JPAConfig.class};
+		return new Class<?>[] {JPAConfig.class, ServicesConfig.class};
 	}
 
 	@Override
