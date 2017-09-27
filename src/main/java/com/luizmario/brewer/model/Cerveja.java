@@ -133,6 +133,14 @@ public class Cerveja {
 		this.estilo = estilo;
 	}
 
+	public Integer getQuantidadeEstoque() {
+		return quantidadeEstoque;
+	}
+
+	public void setQuantidadeEstoque(Integer quantidadeEstoque) {
+		this.quantidadeEstoque = quantidadeEstoque;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
