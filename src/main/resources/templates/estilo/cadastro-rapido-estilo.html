@@ -12,7 +12,11 @@
         <h4 class="modal-title" id="myModalLabel">Cadastro de estilo</h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal">
+      	<div class="alert  alert-danger   alert-dismissible  hidden  js-mensagem-erro" role="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		</div>
+
+        <form class="form-horizontal" th:action="@{/estilo/}">
         	<div class="form-group">
         		<label class="col-sm-2  control-label" for="input-estilo-nome">Nome</label>
         		<div class="col-sm-10">
@@ -22,8 +26,8 @@
         </form>
       </div>
       <div class="modal-footer">        
-        <button type="button" class="btn btn-primary">Salvar</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn  btn-primary  js-cadastro-estilo-rapido-btn">Salvar</button>
+        <button type="button" class="btn  btn-default" data-dismiss="modal">Cancelar</button>
       </div>
     </div>
   </div>
