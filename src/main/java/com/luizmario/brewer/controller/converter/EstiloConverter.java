@@ -9,7 +9,6 @@ public class EstiloConverter implements Converter<String, Estilo> {
 
 	@Override
 	public Estilo convert(String codigo) {
-		System.out.println(">>> converter" + codigo);
 		if (!StringUtils.isEmpty(codigo)){
 			Estilo estilo = new Estilo();
 			estilo.setCodigo(Long.valueOf(codigo));

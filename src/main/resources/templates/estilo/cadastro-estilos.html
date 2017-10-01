@@ -3,6 +3,7 @@
 	  xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:brewer="http://brewer.luizmario.com.br"
 	  layout:decorator="'layout/dashbord'">
 <head></head>
 <body>
@@ -16,12 +17,11 @@
 	</div>
 	<div class="container-fluid">
 		
-		<th:block th:include="fragments/mensage-success"></th:block>
 		
 		<form method="POST" th:object="${estilo}" class="form-vertical  js-form-loading">
-			<th:block th:include="fragments/mensage-error"></th:block>
+			<brewer:message/>
 			<div class="row">				
-				<div class="col-sm-12  form-group" th:classappend="${#fields.hasErrors('nome')} ? has-error">
+				<div class="col-sm-12  form-group" brewer:classforerro="nome">
 					<label for="input-estilo-nome" class="control-label">Nome</label>
 					<input id="input-estilo-nome" type="text" class="form-control" th:field="*{nome}"/>
 				</div>
