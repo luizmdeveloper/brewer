@@ -2,14 +2,14 @@ var Brewer = Brewer || {}
 
 Brewer.EstiloCadastroRapido = (function(){
 	
-	function EstiloCadastroRapido(){
+	function EstiloCadastroRapido(){		
 		this.modalEstilo = $('#modalCadastroRapidoEstilo');
 		this.botaoSalvarEstilo = this.modalEstilo.find('.js-cadastro-estilo-rapido-btn');
 		this.form = this.modalEstilo.find('form');
 		this.url = this.form.attr('action');
 		this.inputEstiloNome = $('#input-estilo-nome');
 		this.containerMenssageErro = $('.js-mensagem-erro');
-		this.inptusEstilo = form.find('.form-group');				
+		this.inptusEstilo = this.form.find('.form-group');
 	}
 	
 	EstiloCadastroRapido.prototype.iniciar = function(){
@@ -30,7 +30,7 @@ Brewer.EstiloCadastroRapido = (function(){
 	}
 	
 	function botaoSalvarEstiloClick(){
-		var nomeEstilo = inputEstiloNome.val();
+		var nomeEstilo = this.inputEstiloNome.val();
 		
 		$.ajax({
 			url : this.url,
@@ -58,6 +58,8 @@ Brewer.EstiloCadastroRapido = (function(){
 		comboEstilo.val(estilo.codigo);
 		this.modalEstilo.modal('hide');
 	}
+	
+	return EstiloCadastroRapido;
 	
 }());
 
