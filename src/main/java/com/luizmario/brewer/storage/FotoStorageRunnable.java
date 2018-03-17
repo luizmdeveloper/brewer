@@ -3,7 +3,7 @@ package com.luizmario.brewer.storage;
 import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.web.multipart.MultipartFile;
 
-import br.com.luizmario.dto.FotoDTO;
+import com.luizmario.brewer.dto.FotoDTO;
 
 public class FotoStorageRunnable implements Runnable {
 	

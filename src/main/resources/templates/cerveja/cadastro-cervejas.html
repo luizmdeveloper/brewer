@@ -119,11 +119,12 @@
 							<input type="hidden" th:field="*{contentType}">
 
 							<label class="control-label">Foto</label>
-							
-							<div id="upload-drop" class="bw-upload">															
-								<i class="glyphicon glyphicon-cloud-upload"></i>
-								<span>Arraste a foto aqui ou </span>
-								<a class="bw-upload-form-file">selecione<input id="upload-select" type="file" accept=".jpg,.jpeg,.png"/></a>
+							<div class="js-container-foto" th:attr="data-url-upload=@{/fotos}">
+								<div id="upload-drop" class="bw-upload">
+									<i class="glyphicon glyphicon-cloud-upload"></i>
+									<span>Arraste a foto aqui ou </span>
+									<a class="bw-upload-form-file">selecione<input id="upload-select" type="file" accept=".jpg,.jpeg,.png"/></a>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -136,30 +137,14 @@
 			</div>
 
 			<div th:replace="estilo/cadastro-rapido-estilo  :: modal"></div>
-	
+			<th:block th:replace="hbs/FotoCerveja"></th:block>
 	</section>
 <th:block layout:fragment="javascripts-extra">
-	<script th:src="@{/javascripts/estilo.cadastro-rapido.js}" src="/javascripts/vendors/uikit.min.js"></script>  
-	<script th:src="@{/javascripts/vendors/uikit.min.js}" src="/javascripts/vendors/uikit.min.js"></script>
-	<script th:src="@{/javascripts/vendors/upload.min.js}" src="javascripts/vendors/upload.min.js"></script>
-	<script>
-		$(function() {
-			var settings = {
-					type: 'json',
-					filelimit: 1,
-					allow: '*.(jpg|jpeg|png)',
-					action : '/brewer/fotos',
-					complete: function(resposta) {
-						$('input[name=foto]').val(resposta.nomeFoto);
-						$('input[name=contentType]').val(resposta.contentType);
-					}
-
-			};
-			
-			UIkit.uploadSelect($('#upload-select'), settings);
-			UIkit.uploadDrop($('#upload-drop'), settings);
-		});
-	</script>
+	<script th:src="@{/javascripts/estilo.cadastro-rapido.js}"></script>  
+	<script th:src="@{/javascripts/vendors/uikit.min.js}"></script>
+	<script th:src="@{/javascripts/vendors/upload.min.js}"></script>
+	<script th:src="@{/javascripts/vendors/handlebars.min.js}"></script>
+	<script th:src="@{/javascripts/cerveja.upload-foto.js}"></script>     
 </th:block>
 </body>
 </html>

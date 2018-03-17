@@ -1,4 +1,4 @@
-package br.com.luizmario.dto;
+package com.luizmario.brewer.dto;
 
 public class FotoDTO {
 	
