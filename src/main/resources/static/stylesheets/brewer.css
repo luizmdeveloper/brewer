@@ -18,6 +18,10 @@
 	font-size: 18px;
 }
 
+.bw-required > .control-label:after {
+	content: "*"
+}
+
 /* Upload */
 .bw-upload {
 	padding: 15px;

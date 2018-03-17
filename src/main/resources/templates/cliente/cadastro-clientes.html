@@ -21,15 +21,15 @@
 	
 		<form method="POST" th:object="${cliente}" class="form-vertical  js-form-loading">
 			<div class="row">				
-				<div class="col-sm-12  form-group">
-					<label for="input-cliente-nome">Nome</label>
+				<div class="col-sm-12  form-group   bw-required">
+					<label for="input-cliente-nome" class="control-label">Nome</label>
 					<input id="input-cliente-nome" type="text" class="form-control"/>
 				</div>
 			</div>
 			
 			<div class="row">
-				<div class="col-sm-4 form-group">
-					<label for="input-cliente-tipo">Pessoa</label>
+				<div class="col-sm-4 form-group  bw-required">
+					<label for="input-cliente-tipo" class="control-label">Pessoa</label>
 					<div>
 						<div class="radio  radio-inline">
 							<input type="radio" name="orgiem"/>
@@ -41,8 +41,8 @@
 						</div>
 					</div>
 				</div>			
-				<div class="col-sm-8  form-group">					
-					<label for="input-cliente-cpfcnpj">CPF/CNPJ</label>
+				<div class="col-sm-8  form-group  bw-required">					
+					<label for="input-cliente-cpfcnpj" class="control-label">CPF/CNPJ</label>
 					<input id="input-cliente-cpfcnpj" type="text" class="form-control"/>
 				</div>			
 			</div>

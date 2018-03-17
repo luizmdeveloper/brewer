@@ -18,14 +18,14 @@
 	<div class="container-fluid">
 		<form method="POST" th:object="${cidade}" class="form-vertical  js-form-loading">
 			<div class="row">				
-				<div class="col-sm-4  form-group">
-					<label for="input-cidade-estado">Estado</label>
+				<div class="col-sm-4  form-group  bw-required">
+					<label for="input-cidade-estado" class="control-label">Estado</label>
 					<select id="input-cidade-estado" class="form-control">
 						<option>Selecione um estado</option>
 					</select>
 				</div>
-				<div class="col-sm-8  form-group">
-					<label for="input-cidade-nome">Nome</label>
+				<div class="col-sm-8  form-group  bw-required">
+					<label for="input-cidade-nome" class="control-label">Nome</label>
 					<input id="input-cidade-nome" class="form-control" type="text"/>
 				</div>
 			</div>
