@@ -22,7 +22,11 @@ Brewer.UploadFoto = (function(){
 		}
 		
 		UIkit.uploadSelect($('#upload-select'), settings);
-		UIkit.uploadDrop(this.uploadFoto, settings);		
+		UIkit.uploadDrop(this.uploadFoto, settings);
+		
+		if (this.inputFotoCerveja.val()){
+			onCompleteUpload.call(this, {nomeFoto: this.inputFotoCerveja.val(), contentType: this.inputContentType.val()});
+		}
 	}
 		
 	function onCompleteUpload(resposta){
