@@ -17,6 +17,7 @@ import com.luizmario.brewer.model.Origem;
 import com.luizmario.brewer.model.Sabor;
 import com.luizmario.brewer.respository.CervejasRepository;
 import com.luizmario.brewer.respository.EstilosRepository;
+import com.luizmario.brewer.respository.filter.CervejaFilter;
 import com.luizmario.brewer.service.CervejaService;
 
 @Controller
@@ -56,12 +57,12 @@ public class CervejasController {
 	}
 	
 	@GetMapping
-	public ModelAndView buscar(){
+	public ModelAndView buscar(CervejaFilter cervejaFilter, BindingResult result){
 		ModelAndView mv = new ModelAndView("cerveja/PesquisaCerveja");
 		mv.addObject("estilos", estilosRepository.findAll());
 		mv.addObject("sabores", Sabor.values());
 		mv.addObject("origens", Origem.values());		
-		mv.addObject("cervejas", cervejaRepository.findAll());
+		mv.addObject("cervejas", cervejaRepository.filtar(cervejaFilter));
 		
 		return mv;
 	}
