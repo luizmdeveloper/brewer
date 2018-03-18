@@ -32,6 +32,11 @@ public class FotosController {
 	}
 	
 	@GetMapping("/temp/{nome:.*}")
+	public byte[] buscarFotoTemporario(@PathVariable String nome){
+		return fotoStorage.buscarFotoTemporario(nome);
+	}
+
+	@GetMapping("/{nome:.*}")
 	public byte[] buscarFoto(@PathVariable String nome){
 		return fotoStorage.buscarFoto(nome);
 	}
