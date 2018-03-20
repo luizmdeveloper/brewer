@@ -9,6 +9,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
@@ -24,9 +25,16 @@ public class CervejasRepositoryImpl implements CervejasRepositoryQuery {
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(readOnly=true)
-	public List<Cerveja> filtar(CervejaFilter filtro) {
+	public List<Cerveja> filtar(CervejaFilter filtro, Pageable page) {
 		
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Cerveja.class);
+		
+		int paginaAtual = page.getPageNumber();
+		int quantidadeRegistroPorPagina = page.getPageSize();
+		int primeiroRegistro = paginaAtual * quantidadeRegistroPorPagina;
+		
+		criteria.setFirstResult(primeiroRegistro);
+		criteria.setMaxResults(quantidadeRegistroPorPagina);
 		
 		if (filtro != null) {
 			if (!StringUtils.isEmpty(filtro.getSku())) {

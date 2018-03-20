@@ -3,6 +3,8 @@ package com.luizmario.brewer.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -57,12 +59,12 @@ public class CervejasController {
 	}
 	
 	@GetMapping
-	public ModelAndView buscar(CervejaFilter cervejaFilter, BindingResult result){
+	public ModelAndView buscar(CervejaFilter cervejaFilter, BindingResult result, @PageableDefault(size = 2) Pageable page){
 		ModelAndView mv = new ModelAndView("cerveja/PesquisaCerveja");
 		mv.addObject("estilos", estilosRepository.findAll());
 		mv.addObject("sabores", Sabor.values());
 		mv.addObject("origens", Origem.values());		
-		mv.addObject("cervejas", cervejaRepository.filtar(cervejaFilter));
+		mv.addObject("cervejas", cervejaRepository.filtar(cervejaFilter, page));
 		
 		return mv;
 	}
