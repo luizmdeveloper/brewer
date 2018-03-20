@@ -64,7 +64,7 @@ public class CervejasController {
 		mv.addObject("estilos", estilosRepository.findAll());
 		mv.addObject("sabores", Sabor.values());
 		mv.addObject("origens", Origem.values());		
-		mv.addObject("cervejas", cervejaRepository.filtar(cervejaFilter, page));
+		mv.addObject("pagina", cervejaRepository.filtar(cervejaFilter, page));
 		
 		return mv;
 	}
