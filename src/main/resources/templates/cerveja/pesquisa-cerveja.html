@@ -139,23 +139,6 @@
 		</div>
 		
 		<brewer:pagination page="${pagina}"/>
-		<!-- <div class="col-sm-12  text-center" th:if="not ${pagina.vazia}">
-			<nav>
-				<ul class="pagination  pagination-sm" th:with="paginaAtual=${pagina.Atual}">
-					<li th:class="${pagina.Primeiro} ? disabled">
-						<a th:href="${pagina.urlParaPagina(paginaAtual-1)}" th:remove="${pagina.Primeiro} ? tag"><span>&laquo;</span></a>
-					</li>
-					<th:block th:each="p : ${#numbers.sequence(1, pagina.total)}" th:with="numeroPagina=${p-1}">
-						<li th:class="${paginaAtual == numeroPagina} ? active">
-							<a th:href="${pagina.urlParaPagina(numeroPagina)}">[[${p}]]</a>
-						</li>
-					</th:block>
-					<li th:class="${pagina.Ultima} ? disabled">
-						<a th:href="${pagina.urlParaPagina(paginaAtual+1)}" th:remove="${pagina.Ultima} ? tag"><span>&raquo;</span></a>
-					</li>					
-				</ul>
-			</nav>
-		</div> -->		
 	</div>
 	</section>
 </body>

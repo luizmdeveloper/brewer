@@ -24,12 +24,10 @@ public class CervejasRepositoryImpl implements CervejasRepositoryQuery {
 	@PersistenceContext
 	private EntityManager manager;
 
-	
-	@SuppressWarnings("unchecked")
 	@Override
+	@SuppressWarnings("unchecked")
 	@Transactional(readOnly=true)
-	public Page<Cerveja> filtar(CervejaFilter filtro, Pageable page) {
-		
+	public Page<Cerveja> filtar(CervejaFilter filtro, Pageable page) {		
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Cerveja.class);
 		
 		int paginaAtual = page.getPageNumber();
