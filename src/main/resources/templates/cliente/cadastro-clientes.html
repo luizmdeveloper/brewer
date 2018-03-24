@@ -4,7 +4,7 @@
 	  xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  xmlns:brewer="http://brewer.luizmario.com.br"
-	  layout:decorator="'layout/dashbord'">
+	  layout:decorate="layout/dashbord">
 <head>
 	<title>Cadastro de cliente</title>
 </head>
@@ -32,18 +32,18 @@
 					<label for="input-cliente-tipo" class="control-label">Pessoa</label>
 					<div>
 						<div class="radio  radio-inline">
-							<input type="radio" name="orgiem"/>
-							<label>Física</label>
+							<input type="radio" class="js-radio-tipo-pessoa" id="id_FISICA" name="tipoPessoa" data-tipo-pessoa="CPF" data-mascara="00.000.000-00"/>
+							<label class="control-label" for="id_FISICA">Física</label>
 						</div>
 						<div class="radio  radio-inline">
-							<input type="radio" name="orgiem"/>
-							<label>Jurídica</label>
+							<input type="radio" class="js-radio-tipo-pessoa" id="id_JURIDICA" name="tipoPessoa" data-tipo-pessoa="CNPJ" data-mascara="00.000.000/0000-00"/>
+							<label class="control-label" for="id_JURIDICA">Jurídica</label>
 						</div>
 					</div>
 				</div>			
 				<div class="col-sm-8  form-group  bw-required">					
 					<label for="input-cliente-cpfcnpj" class="control-label">CPF/CNPJ</label>
-					<input id="input-cliente-cpfcnpj" type="text" class="form-control"/>
+					<input id="input-cliente-cpfcnpj" type="text" class="form-control" disabled/>
 				</div>			
 			</div>
 			
@@ -99,6 +99,8 @@
 		</form>	
 	</div>	
 </section>
-
+<th:block layout:fragment="javascripts-extra">
+	<script th:src="@{/javascripts/cliente.mascara-cnpj-cpf.js}"></script>  
+</th:block>
 </body>
 </html>
