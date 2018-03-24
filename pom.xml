@@ -48,7 +48,10 @@
 		<jackson-databind.version>2.7.5</jackson-databind.version>
 		
 		<!-- thumbnailator - Gerar Thumbnail -->
-		<thumbnailator.version>0.4.8</thumbnailator.version>		
+		<thumbnailator.version>0.4.8</thumbnailator.version>
+		
+		<!-- thymeleaf extra data -->
+		<thymeleaf-extras-data-attribute.version>2.0.1</thymeleaf-extras-data-attribute.version>		
 	</properties>
 	
 	<build>
@@ -206,6 +209,13 @@
 			<artifactId>thumbnailator</artifactId>
 			<version>${thumbnailator.version}</version>
 			<scope>compile</scope>
+		</dependency>
+		
+		<!-- thymeleaf extra data -->		
+		<dependency>
+		    <groupId>com.github.mxab.thymeleaf.extras</groupId>
+		    <artifactId>thymeleaf-extras-data-attribute</artifactId>
+		    <version>${thymeleaf-extras-data-attribute.version}</version>
 		</dependency>
 		
 	</dependencies>

@@ -38,10 +38,36 @@ Brewer.PhoneNumberMask = (function(){
 	
 })();
 
+Brewer.CepMask = (function(){
+	
+	function CepMask(){
+		this.inputCep = $('.js-cep');
+	}
+	
+	CepMask.prototype.enaable = function(){
+		var maskBehavior = function (val) {
+			return '00.000-000';
+		}
+		var options = {
+				onKeyPress: function(val, e, field, options) {
+					field.mask(maskBehavior.apply({}, arguments), options);
+			    }
+		};
+
+		this.inputCep.mask(maskBehavior, options);
+	}
+	
+	
+	return CepMask;
+})();
+
 $(function(){	
 	var maskMoney =  new Brewer.MaskMoney();
 	maskMoney.enable();	
 	
 	var phoneNumberMask = new Brewer.PhoneNumberMask();
 	phoneNumberMask.enable();
+	
+	var cepMask = new Brewer.CepMask();
+	cepMask.enaable();
 });
