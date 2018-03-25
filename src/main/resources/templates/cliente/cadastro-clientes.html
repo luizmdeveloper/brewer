@@ -89,9 +89,14 @@
 				</div>
 				<div class="col-sm-4  form-group">					
 					<label for="input-cliente-cidade">Cidade</label>
-					<select id="input-cliente-cidade" class="form-control">
-						<option value="">Selecione uma cidade</option>
-					</select>
+					<div class="bw-field-aciton">
+						<select id="input-cliente-cidade" class="form-control" data:url="@{/cidade}">
+						</select>
+						
+						<div class="bw-field-aciton__icon  js-image-loading">
+							<img th:src="@{/images/mini-loading.gif}"/>
+						</div>
+					</div>
 				</div>
 			</div>
 			
@@ -103,7 +108,8 @@
 	</div>	
 </section>
 <th:block layout:fragment="javascripts-extra">
-	<script th:src="@{/javascripts/cliente.mascara-cnpj-cpf.js}"></script>  
+	<script th:src="@{/javascripts/cliente.mascara-cnpj-cpf.js}"></script>
+	<script th:src="@{/javascripts/cliente.combo-estado-cidade.js}"></script>
 </th:block>
 </body>
 </html>
