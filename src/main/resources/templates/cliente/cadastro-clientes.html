@@ -82,6 +82,9 @@
 					<label for="input-cliente-estado">Estado</label>
 					<select id="input-cliente-estado" class="form-control">
 						<option value="">Selecione um estado</option>
+						<th:block th:each="estado : ${estados}">
+							<option th:value="${estado.codigo}" th:text="${estado.nome}"></option>						
+						</th:block>
 					</select>
 				</div>
 				<div class="col-sm-4  form-group">					
