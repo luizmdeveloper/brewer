@@ -1,0 +1,2 @@
+ALTER TABLE cliente 
+CHANGE COLUMN cpf_cnpj cpf_cnpj VARCHAR(30) NOT NULL ;

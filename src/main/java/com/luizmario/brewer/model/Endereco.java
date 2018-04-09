@@ -2,10 +2,10 @@ package com.luizmario.brewer.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 @Embeddable
 public class Endereco implements Serializable {
@@ -17,9 +17,11 @@ public class Endereco implements Serializable {
 	private String cep;
 	private String complemento;
 	
+	@Transient
+	private Estado estado;
+	
 	@ManyToOne
 	@JoinColumn(name="codigo_cidade")
-	@Column(name="codigo_cidade")
 	private Cidade cidade;
 
 	public String getLogradouro() {
@@ -60,5 +62,13 @@ public class Endereco implements Serializable {
 
 	public void setCidade(Cidade cidade) {
 		this.cidade = cidade;
+	}
+
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
 	}
 }

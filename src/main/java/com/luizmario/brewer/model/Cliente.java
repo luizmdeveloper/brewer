@@ -13,8 +13,19 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.br.CNPJ;
+import org.hibernate.validator.constraints.br.CPF;
+import org.hibernate.validator.group.GroupSequenceProvider;
+
+import com.luizmario.brewer.model.validation.ClienteGroupSequenceProvider;
+import com.luizmario.brewer.model.validation.groups.CnpjGroups;
+import com.luizmario.brewer.model.validation.groups.CpfGroups;
+
 @Entity
 @Table(name = "cliente")
+@GroupSequenceProvider(value = ClienteGroupSequenceProvider.class)
 public class Cliente implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -23,18 +34,23 @@ public class Cliente implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 	
-	@NotNull
+	@NotBlank(message = "Nome é obrigatório")
 	private String nome;
 	
+	@NotNull(message = "Tipo de pessoa é obrigatório")
 	@Enumerated(EnumType.STRING)
 	@Column(name="tipo_pessoa")
 	private TipoPessoa tipoPessoa;
 	
+	@NotBlank(message = "CPF/CNPJ é obrigatório")
+	@CPF(groups = CpfGroups.class)
+	@CNPJ(groups = CnpjGroups.class)
 	@Column(name="cpf_cnpj")
 	private String cpfOuCnpj;
 	
 	private String telefone;
 	
+	@Email(message = "e-mail inválido")
 	private String email;
 	
 	@Embedded
@@ -94,5 +110,30 @@ public class Cliente implements Serializable {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Cliente other = (Cliente) obj;
+		if (codigo == null) {
+			if (other.codigo != null)
+				return false;
+		} else if (!codigo.equals(other.codigo))
+			return false;
+		return true;
 	}
 }
