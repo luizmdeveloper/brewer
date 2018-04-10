@@ -91,10 +91,10 @@
 				</div>
 				<div class="col-sm-4  form-group">					
 					<label for="input-cliente-cidade">Cidade</label>
-					<input type="hidden" id="inputHiddenCidadeSelecionada" th:value="*{endereco.cidade} != null ? ${endereco.cidade.codigo}">
+					<input type="hidden" id="inputHiddenCidadeSelecionada" th:value="*{endereco.cidade} != null ? *{endereco.cidade.codigo}">
 					<div class="bw-field-aciton">
-						<select id="input-cliente-cidade" class="form-control" data:url="@{/cidade}">
-						</select>
+						<select id="input-cliente-cidade" class="form-control" data:url="@{/cidade}" th:field="*{endereco.cidade}">
+						</select>						
 						
 						<div class="bw-field-aciton__icon  js-image-loading" style="display: none">
 							<img th:src="@{/images/mini-loading.gif}"/>

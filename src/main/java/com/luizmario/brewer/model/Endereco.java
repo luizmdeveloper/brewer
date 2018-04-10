@@ -16,13 +16,13 @@ public class Endereco implements Serializable {
 	private String numero;
 	private String cep;
 	private String complemento;
-	
+		
+	@ManyToOne
+	@JoinColumn(name = "codigo_cidade")
+	private Cidade cidade;
+
 	@Transient
 	private Estado estado;
-	
-	@ManyToOne
-	@JoinColumn(name="codigo_cidade")
-	private Cidade cidade;
 
 	public String getLogradouro() {
 		return logradouro;

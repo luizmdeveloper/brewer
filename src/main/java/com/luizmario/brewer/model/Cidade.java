@@ -77,5 +77,5 @@ public class Cidade implements Serializable {
 		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
-	}	
+	}
 }
