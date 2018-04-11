@@ -5,7 +5,7 @@ import com.luizmario.brewer.model.validation.groups.CpfGroups;
 
 public enum TipoPessoa {
 
-	Fisica("Fisica", "CPF", "00.000.000-00", CpfGroups.class),
+	Fisica("Fisica", "CPF", "000.000.000-00", CpfGroups.class),
 	Juridica("Jurídica", "CNPJ", "00.000.000/0000-00", CnpjGroups.class);
 	
 	private String field;
@@ -34,5 +34,9 @@ public enum TipoPessoa {
 	
 	public Class<?> getGrupo(){
 		return grupo;
+	}
+
+	public static String removerFormatacao(String cpfOuCnpj) {
+		return cpfOuCnpj.replaceAll("\\.|-|/", "");
 	}
 }

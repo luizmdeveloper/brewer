@@ -14,6 +14,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.luizmario.brewer.model.Cliente;
 import com.luizmario.brewer.model.TipoPessoa;
 import com.luizmario.brewer.respository.EstadoRepository;
+import com.luizmario.brewer.service.ClienteService;
+import com.luizmario.brewer.service.execption.CnpjCpfJaCadastradoException;
 
 @Controller
 @RequestMapping("/cliente")
@@ -21,6 +23,9 @@ public class ClientesController {
 	
 	@Autowired
 	private EstadoRepository estado;
+	
+	@Autowired
+	private ClienteService clienteService;
 
 	@RequestMapping("/novo")
 	public ModelAndView novo(Cliente cliente){
@@ -34,6 +39,13 @@ public class ClientesController {
 	@PostMapping("/novo")
 	public ModelAndView salvar (@Valid Cliente cliente, BindingResult result, Model model, RedirectAttributes attributes){
 		if (result.hasErrors()){
+			return novo(cliente);
+		}
+		
+		try {			
+			clienteService.salvar(cliente);
+		} catch (CnpjCpfJaCadastradoException e) {
+			result.rejectValue("cpfOuCnpj", e.getMessage(), e.getMessage());
 			return novo(cliente);
 		}
 		

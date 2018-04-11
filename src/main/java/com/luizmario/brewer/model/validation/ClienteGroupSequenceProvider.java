@@ -15,7 +15,6 @@ public class ClienteGroupSequenceProvider implements DefaultGroupSequenceProvide
 		grupos.add(Cliente.class);
 		
 		if (isPessoaSelecionada(cliente)){
-			System.out.println("Tipo Pessoa -> " + cliente.getTipoPessoa().getGrupo());
 			grupos.add(cliente.getTipoPessoa().getGrupo());
 		}
 		

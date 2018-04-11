@@ -10,6 +10,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -45,7 +47,7 @@ public class Cliente implements Serializable {
 	@NotBlank(message = "CPF/CNPJ é obrigatório")
 	@CPF(groups = CpfGroups.class)
 	@CNPJ(groups = CnpjGroups.class)
-	@Column(name="cpf_cnpj")
+	@Column(name = "cpf_cnpj")
 	private String cpfOuCnpj;
 	
 	private String telefone;
@@ -58,6 +60,13 @@ public class Cliente implements Serializable {
 
 	public Long getCodigo() {
 		return codigo;
+	}
+	
+	@PrePersist @PreUpdate 
+	private void prePersistPreUpdate() {
+		System.out.println("cnpj/cpf antes de remover a formatação " + this.cpfOuCnpj);
+		this.cpfOuCnpj = TipoPessoa.removerFormatacao(this.cpfOuCnpj);
+		System.out.println("cnpj ou cpf " + TipoPessoa.removerFormatacao(this.cpfOuCnpj));
 	}
 
 	public void setCodigo(Long codigo) {
@@ -110,6 +119,10 @@ public class Cliente implements Serializable {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+	
+	public String getCpfOuCnpjSemFormatacao(){
+		return TipoPessoa.removerFormatacao(this.cpfOuCnpj);
 	}
 
 	@Override

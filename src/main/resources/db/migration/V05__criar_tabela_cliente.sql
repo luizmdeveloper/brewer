@@ -3,7 +3,7 @@ CREATE TABLE cliente (
 	nome VARCHAR(80) NOT NULL,
 	tipo_pessoa VARCHAR(15),
 	cpf_cnpj VARCHAR(30),
-	telfone VARCHAR(20),
+	telefone VARCHAR(20),
 	email VARCHAR(50) NOT NULL,
 	logradouro VARCHAR(50),
 	complemento VARCHAR(30),
