@@ -8,5 +8,5 @@ import com.luizmario.brewer.respository.filter.CervejaFilter;
 
 public interface CervejasRepositoryQuery {
 	
-	public Page<Cerveja> filtar(CervejaFilter filtro, Pageable page);
+	public Page<Cerveja> filtar(CervejaFilter filtro, Pageable pageable);
 }

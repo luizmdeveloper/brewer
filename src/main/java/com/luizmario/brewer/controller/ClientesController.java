@@ -1,19 +1,26 @@
 package com.luizmario.brewer.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.luizmario.brewer.controller.page.PageWrapper;
 import com.luizmario.brewer.model.Cliente;
 import com.luizmario.brewer.model.TipoPessoa;
+import com.luizmario.brewer.respository.ClienteRepository;
 import com.luizmario.brewer.respository.EstadoRepository;
+import com.luizmario.brewer.respository.filter.ClienteFilter;
 import com.luizmario.brewer.service.ClienteService;
 import com.luizmario.brewer.service.execption.CnpjCpfJaCadastradoException;
 
@@ -26,6 +33,19 @@ public class ClientesController {
 	
 	@Autowired
 	private ClienteService clienteService;
+	
+	@Autowired
+	private ClienteRepository clienteRepository;
+	
+	@GetMapping
+	public ModelAndView buscar(ClienteFilter clienteFilter,BindingResult result, @PageableDefault(size = 5) Pageable page, HttpServletRequest httpServletRequest){
+		ModelAndView mv = new ModelAndView("cliente/pesquisa-clientes");
+		
+		PageWrapper<Cliente> pagina = new PageWrapper<>(clienteRepository.filtrar(clienteFilter, page), httpServletRequest);		
+		mv.addObject("pagina", pagina);
+			
+		return mv;
+	}
 
 	@RequestMapping("/novo")
 	public ModelAndView novo(Cliente cliente){
