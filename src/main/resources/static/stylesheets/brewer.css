@@ -137,3 +137,17 @@
 .table-estilos-col-acoes{
 	width: 80px;	
 }
+
+/* Colunas - Pesquisa de Cidade */
+.table-cidades-col-nome {
+	text-align: left;
+}
+
+.table-cidades-col-estado {
+	width: 120px;	
+	text-align: left;
+}
+
+.table-cidades-col-acoes{
+	width: 80px;	
+}
