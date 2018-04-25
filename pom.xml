@@ -51,7 +51,10 @@
 		<thumbnailator.version>0.4.8</thumbnailator.version>
 		
 		<!-- thymeleaf extra data -->
-		<thymeleaf-extras-data-attribute.version>2.0.1</thymeleaf-extras-data-attribute.version>		
+		<thymeleaf-extras-data-attribute.version>2.0.1</thymeleaf-extras-data-attribute.version>
+		
+		<!-- Cache - guava -->
+		<guava.version>19.0</guava.version>		
 	</properties>
 	
 	<build>
@@ -217,6 +220,22 @@
 		    <artifactId>thymeleaf-extras-data-attribute</artifactId>
 		    <version>${thymeleaf-extras-data-attribute.version}</version>
 		</dependency>
+		
+		<!-- Cache - guava -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+    		<artifactId>guava</artifactId>
+    		<version>${guava.version}</version>
+    		<scope>compile</scope>
+		</dependency>
+		
+		<!-- spring context support -->
+		<dependency>
+			<groupId>org.springframework</groupId> 
+			<artifactId>spring-context-support</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		
 		
 	</dependencies>
 	
