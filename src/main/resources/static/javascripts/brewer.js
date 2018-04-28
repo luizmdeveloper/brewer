@@ -44,7 +44,7 @@ Brewer.CepMask = (function(){
 		this.inputCep = $('.js-cep');
 	}
 	
-	CepMask.prototype.enaable = function(){
+	CepMask.prototype.enable = function(){
 		var maskBehavior = function (val) {
 			return '00.000-000';
 		}
@@ -61,6 +61,25 @@ Brewer.CepMask = (function(){
 	return CepMask;
 })();
 
+Brewer.DateMask = (function(){
+	
+	function DateMask(){
+		this.inputDateMask = $('.js-date');
+	}
+	
+	DateMask.prototype.enable = function() {
+		this.inputDateMask.mask('00/00/0000');
+		this.inputDateMask.datepicker({
+			orientation: 'bottom',
+			language: 'pt-BR',
+			autoclose: true				
+		});
+	}
+	
+	return DateMask;
+	
+})();
+
 $(function(){	
 	var maskMoney =  new Brewer.MaskMoney();
 	maskMoney.enable();	
@@ -69,5 +88,8 @@ $(function(){
 	phoneNumberMask.enable();
 	
 	var cepMask = new Brewer.CepMask();
-	cepMask.enaable();
+	cepMask.enable();
+	
+	var dateMask = new Brewer.DateMask();
+	dateMask.enable();
 });
