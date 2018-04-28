@@ -1,0 +1,2 @@
+ALTER TABLE usuario 
+	CHANGE COLUMN senha senha VARCHAR(120) NOT NULL;

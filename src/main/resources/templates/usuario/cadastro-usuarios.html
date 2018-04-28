@@ -32,31 +32,31 @@
 			<brewer:message/>
 			<div class="row">				
 				<div class="col-sm-12  form-group  bw-required" brewer:classforerror="nome">
-					<label for="input-usuario-nome">Nome</label>
+					<label for="input-usuario-nome" class="control-label">Nome</label>
 					<input id="input-usuario-nome" type="text" class="form-control" autofocus="autofocus" th:field="*{nome}"/>
 				</div>
 			</div>
 			<div class="row">				
 				<div class="col-sm-6  form-group  bw-required" brewer:classforerror="email">
-					<label for="input-usuario-email">e-mail</label>
+					<label for="input-usuario-email" class="control-label">e-mail</label>
 					<input id="input-usuario-email" type="text" class="form-control" th:field="*{email}"/>
 				</div>
-				<div class="col-sm-4  form-group bw-required" brewer:classforerror="dataNascimento">
-					<label for="input-usuario-dtanascimento">Data nascimento</label>
+				<div class="col-sm-4  form-group" brewer:classforerror="dataNascimento">
+					<label for="input-usuario-dtanascimento" class="control-label">Data nascimento</label>
 					<input id="input-usuario-dtanascimento" type="text" class="form-control  js-date" th:field="*{dataNascimento}" autocomplete="off"/>
 				</div>
 			</div>
 			<div class="row">				
-				<div class="col-sm-3  form-group" brewer:classforerror="senha">
-					<label for="input-usuario-senha">Senha</label>
+				<div class="col-sm-3  form-group" brewer:classforerror="senha" th:classappend="${usuario.isNovo()} ? bw-required ">
+					<label for="input-usuario-senha" class="control-label">Senha</label>
 					<input id="input-usuario-senha" type="password" class="form-control" th:field="*{senha}"/>
 				</div>
 				<div class="col-sm-3  form-group" brewer:classforerror="confirmacaoSenha">
-					<label for="input-usuario-confirmacao-senha">Confirmação</label>
+					<label for="input-usuario-confirmacao-senha" class="control-label">Confirmação</label>
 					<input id="input-usuario-confirmacao-senha" type="password" class="form-control" th:field="*{confirmacaoSenha}"/>
 				</div>
-				<div class="col-sm-4  form-group  bw-required">
-					<label for="input-usuario-status" class="ontrol-label" >Status</label>
+				<div class="col-sm-4  form-group   bw-required">
+					<label for="input-usuario-status" class="control-label" >Status</label>
 					<div>
 						<input type="checkbox" class="js-status" data-on-text="Ativo" data-off-text="Inativo" data-off-color="danger" th:field="*{ativo}"/>
 					</div>

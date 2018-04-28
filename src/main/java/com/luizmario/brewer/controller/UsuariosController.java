@@ -14,6 +14,7 @@ import com.luizmario.brewer.model.Usuario;
 import com.luizmario.brewer.respository.GrupoRepository;
 import com.luizmario.brewer.service.UsuarioService;
 import com.luizmario.brewer.service.execption.EmailUsuarioJaCadastradoException;
+import com.luizmario.brewer.service.execption.SenhaUsuarioNaoPreenchidaException;
 
 @Controller
 @RequestMapping("/usuario")
@@ -43,6 +44,9 @@ public class UsuariosController {
 			usuarioService.salvar(usuario);
 		}catch (EmailUsuarioJaCadastradoException e) {
 			result.rejectValue("email", e.getMessage(), e.getMessage());
+			return novo(usuario);
+		}catch(SenhaUsuarioNaoPreenchidaException e) {
+			result.rejectValue("senha", e.getMessage(), e.getMessage());
 			return novo(usuario);
 		}
 		

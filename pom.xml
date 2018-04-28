@@ -59,6 +59,9 @@
 		
 		<!-- apache commons beanutils -->
 		<commons-beanutils.verison>1.9.2</commons-beanutils.verison>
+		
+		<!-- spring security web -->
+		<spring-security-web.version>4.1.1.RELEASE</spring-security-web.version>
 	</properties>
 
 	<build>
@@ -245,6 +248,13 @@
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
 			<version>${commons-beanutils.verison}</version>
+		</dependency>
+
+		<!-- Spring security web -->		
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-web</artifactId>
+		    <version>${spring-security-web.version}</version>
 		</dependency>
 
 	</dependencies>
