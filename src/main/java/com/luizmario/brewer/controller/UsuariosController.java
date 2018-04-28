@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.luizmario.brewer.model.Usuario;
+import com.luizmario.brewer.respository.GrupoRepository;
 import com.luizmario.brewer.service.UsuarioService;
 import com.luizmario.brewer.service.execption.EmailUsuarioJaCadastradoException;
 
@@ -21,9 +22,13 @@ public class UsuariosController {
 	@Autowired
 	private UsuarioService usuarioService;
 	
+	@Autowired
+	private GrupoRepository grupoRepository;
+	
 	@RequestMapping("/novo")
 	public ModelAndView novo(Usuario usuario){
-		ModelAndView mv = new ModelAndView("usuario/cadastro-usuarios");
+		ModelAndView mv = new ModelAndView("usuario/cadastro-usuarios");		
+		mv.addObject("grupos", grupoRepository.findAll());
 		
 		return mv;
 	}
