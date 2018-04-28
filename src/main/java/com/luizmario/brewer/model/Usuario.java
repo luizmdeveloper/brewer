@@ -44,12 +44,13 @@ public class Usuario implements Serializable {
 	@Transient
 	private String confirmacaoSenha;
 		
+	@NotNull(message = "Ativo é obrigatório")
 	private Boolean ativo;
 	
 	@Column(name="data_nascimento")
 	private LocalDate dataNascimento;
 	
-	@NotNull(message = "Selecione pelo menos um grupo")
+//	@NotNull(message = "Selecione pelo menos um grupo")
 	@ManyToMany
 	@JoinTable(name = "usuario_grupo",
 			   joinColumns = @JoinColumn(name = "codigo_usuario"),
