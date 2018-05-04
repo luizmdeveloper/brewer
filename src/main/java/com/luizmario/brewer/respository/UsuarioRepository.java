@@ -5,8 +5,9 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.luizmario.brewer.model.Usuario;
+import com.luizmario.brewer.respository.helper.usuario.UsuarioRepositoryQuery;
 
-public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
+public interface UsuarioRepository extends JpaRepository<Usuario, Long>, UsuarioRepositoryQuery {
 
 	public Optional<Usuario> findByEmailIgnoreCase(String email); 
 
