@@ -37,14 +37,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
+				.antMatchers("/usuario/novo").hasRole("CADASTRAR_USUARIO")
+				.antMatchers("/cidade/novo").hasRole("CADASTRAR_CIDADE")
 				.anyRequest().authenticated()
 			.and()
 				.formLogin()
-					.loginPage("/login")
-						.permitAll()
+				.loginPage("/login").permitAll()
 			.and()
-				.csrf().
-					disable();
+				.csrf().disable();
 	}
 	
 	@Bean
