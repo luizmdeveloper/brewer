@@ -36,7 +36,7 @@ Brewer.PhoneNumberMask = (function(){
 	
 	return PhoneNumberMask; 
 	
-})();
+}());
 
 Brewer.CepMask = (function(){
 	
@@ -80,6 +80,24 @@ Brewer.DateMask = (function(){
 	
 })();
 
+
+Brewer.Security = (function(){
+	
+	function Security(){
+		this.token = $('input[name=token]').val();
+		this.header = $('input[name=headerName]').val();
+	}
+	
+	Security.prototype.enable = function(){
+		$(document).ajaxSend(function(event,jqxhr,settings ) {
+			jqxhr.setRequestHeader(this.header, this.token);
+		}.bind(this));
+	}
+	
+	return Security;
+	
+}());
+
 $(function(){	
 	var maskMoney =  new Brewer.MaskMoney();
 	maskMoney.enable();	
@@ -92,4 +110,7 @@ $(function(){
 	
 	var dateMask = new Brewer.DateMask();
 	dateMask.enable();
+	
+	var security = new Brewer.Security();
+	security.enable();
 });

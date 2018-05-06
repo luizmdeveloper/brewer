@@ -38,7 +38,7 @@ public class CervejasController {
 	private CervejasRepository cervejaRepository;
 
 	
-	@RequestMapping("/novo")
+	@RequestMapping("/nova")
 	public ModelAndView novo(Cerveja cerveja){
 		ModelAndView mv = new ModelAndView("cerveja/cadastro-cervejas");
 		mv.addObject("sabores", Sabor.values());
@@ -47,7 +47,7 @@ public class CervejasController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/novo", method = RequestMethod.POST)
+	@RequestMapping(value = "/nova", method = RequestMethod.POST)
 	public ModelAndView cadastrar(@Valid Cerveja cerveja, BindingResult result, Model model, RedirectAttributes attributes){
 		
 		if (result.hasErrors()){			
@@ -57,7 +57,7 @@ public class CervejasController {
 		cervejaService.salvar(cerveja);		
 		attributes.addFlashAttribute("mensagem", "Cerveja cadastrada com sucesso!");
 		
-		return new ModelAndView("redirect:/cerveja/novo");
+		return new ModelAndView("redirect:/cerveja/nova");
 	}
 	
 	@GetMapping

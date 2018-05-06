@@ -18,7 +18,8 @@ Brewer.UploadFoto = (function(){
 				filelimit: 1,
 				allow: '*.(jpg|jpeg|png)',
 				action : this.containerFotoCerveja.data('url-upload'),
-				complete: onCompleteUpload.bind(this)
+				complete: onCompleteUpload.bind(this),
+				beforeSend: addCsrfToken
 		}
 		
 		UIkit.uploadSelect($('#upload-select'), settings);
@@ -47,6 +48,13 @@ Brewer.UploadFoto = (function(){
 		this.inputContentType.val('');
 		this.uploadFoto.removeClass('hidden');	
 		$('.js-foto-cerveja').remove();
+	}
+	
+	function addCsrfToken(xhr){
+		var token = $('input[name=token]').val();
+		var header = $('input[name=headerName]').val();
+		
+		xhr.setRequestHeader(header, token);
 	}
 		
 	return UploadFoto;

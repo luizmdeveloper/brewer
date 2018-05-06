@@ -21,6 +21,8 @@
 </head>
  
 <body>
+	<input type="hidden" name="token" th:value="${_csrf.token}">
+	<input type="hidden" name="headerName" th:value="${_csrf.headerName}">
 	<div class="aw-layout-page">
 	
 		<div th:replace="layout/fragments/cabecalho  :: header"></div>

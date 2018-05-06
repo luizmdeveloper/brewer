@@ -58,7 +58,7 @@ Brewer.EstiloCadastroRapido = (function(){
 		comboEstilo.val(estilo.codigo);
 		this.modalEstilo.modal('hide');
 	}
-	
+		
 	return EstiloCadastroRapido;
 	
 }());

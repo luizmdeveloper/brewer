@@ -27,7 +27,7 @@
 		</div>
 	</div>
 	<div class="container-fluid">
-		<form method="POST" th:object="${cidade}" class="form-vertical  js-form-loading">
+		<form method="POST" th:object="${cidade}" class="form-vertical  js-form-loading" th:action="@{/cidade/nova}">
 			<brewer:message/>
 			
 			<div class="row">				
