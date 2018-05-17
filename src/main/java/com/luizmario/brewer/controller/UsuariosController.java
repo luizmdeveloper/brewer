@@ -7,11 +7,15 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -19,6 +23,7 @@ import com.luizmario.brewer.model.Usuario;
 import com.luizmario.brewer.respository.GrupoRepository;
 import com.luizmario.brewer.respository.UsuarioRepository;
 import com.luizmario.brewer.respository.filter.UsuarioFilter;
+import com.luizmario.brewer.service.StatusUsuario;
 import com.luizmario.brewer.service.UsuarioService;
 import com.luizmario.brewer.service.execption.EmailUsuarioJaCadastradoException;
 import com.luizmario.brewer.service.execption.SenhaUsuarioNaoPreenchidaException;
@@ -71,6 +76,12 @@ public class UsuariosController {
 		mv.addObject("grupos", grupoRepository.findAll());
 		
 		return mv;
+	}
+	
+	@PutMapping("/status")
+	@ResponseStatus(HttpStatus.OK)
+	public void altetarStatus(@RequestParam("codigos[]") Long codigos[], @RequestParam("status") StatusUsuario status) {
+		usuarioService.alterarStauts(codigos, status);
 	}
 
 }

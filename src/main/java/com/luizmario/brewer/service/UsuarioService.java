@@ -43,4 +43,9 @@ public class UsuarioService {
 		usuarioRepository.save(usuario);
 	}
 
+	@Transactional
+	public void alterarStauts(Long[] codigos, StatusUsuario status) {
+		status.executar(codigos, usuarioRepository);
+	}
+
 }

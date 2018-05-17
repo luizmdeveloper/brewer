@@ -160,3 +160,8 @@
 .table-cidades-col-acoes{
 	width: 80px;	
 }
+
+/* Colunas - Pesquisa de usuarios */
+.table-usuarios-col-status-checkbox{
+	width: 30px;	
+}
