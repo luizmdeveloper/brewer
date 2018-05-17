@@ -163,5 +163,6 @@
 
 /* Colunas - Pesquisa de usuarios */
 .table-usuarios-col-status-checkbox{
-	width: 30px;	
+	width: 30px;
+	text-alagin: center;	
 }
