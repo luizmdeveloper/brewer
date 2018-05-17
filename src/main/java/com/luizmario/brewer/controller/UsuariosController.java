@@ -1,11 +1,10 @@
 package com.luizmario.brewer.controller;
 
-import java.awt.print.Pageable;
-
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.luizmario.brewer.controller.page.PageWrapper;
 import com.luizmario.brewer.model.Usuario;
 import com.luizmario.brewer.respository.GrupoRepository;
 import com.luizmario.brewer.respository.UsuarioRepository;
@@ -70,10 +70,12 @@ public class UsuariosController {
 	}
 	
 	@GetMapping
-	public ModelAndView buscar(UsuarioFilter usuarioFilter, @PageableDefault(size = 5) Pageable page, HttpServletResponse httpServletRequest) {
+	public ModelAndView buscar(UsuarioFilter usuarioFilter, @PageableDefault(size = 5) Pageable page, HttpServletRequest httpServletRequest) {
 		ModelAndView mv = new ModelAndView("usuario/pesquisar-usuarios");
-		mv.addObject("usuarios", usuarioRepository.findAll(usuarioFilter));
 		mv.addObject("grupos", grupoRepository.findAll());
+
+		PageWrapper<Usuario> pagina = new PageWrapper<>(usuarioRepository.filtar(usuarioFilter, page), httpServletRequest);		
+		mv.addObject("pagina", pagina);
 		
 		return mv;
 	}

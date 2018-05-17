@@ -3,6 +3,9 @@ package com.luizmario.brewer.respository.helper.usuario;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.luizmario.brewer.model.Usuario;
 import com.luizmario.brewer.respository.filter.UsuarioFilter;
 
@@ -12,6 +15,7 @@ public interface UsuarioRepositoryQuery {
 	
 	public List<String> findPermissoesByUsuario(Usuario usuario);
 	
-	public List<Usuario> findAll(UsuarioFilter usuarioFilter);
+	
+	public Page<Usuario> filtar(UsuarioFilter usuarioFilter, Pageable page); 
 
 }

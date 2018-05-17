@@ -82,12 +82,8 @@
 									<label></label>
 								</div>
 							</th>
-							<th>Nome
-								<!-- <brewer:order page="${pagina}" field="nome" text="Nome"/>  --> 
-							</th>
-							<th>Email
-								<!-- <brewer:order page="${pagina}" field="email" text="email"/>  --> 
-							</th>							
+							<th>Nome</th>
+							<th>Email</th>							
 							<th>Grupos</th>
 							<th>Status</th>
 							<th></th>							
@@ -95,7 +91,7 @@
 					</thead>
 						
 					<tbody>
-						<tr th:each="usuario : ${usuarios}">
+						<tr th:each="usuario : ${pagina.conteudo}">
 							<td>
 								<div class="checkbox  aw-checkbox-no-margin" th:if="${#authentication.principal.usuario.codigo != usuario.codigo}">
 									<input type="checkbox" class="js-selecao" data:codigo="${usuario.codigo}"/>
@@ -123,14 +119,13 @@
 								</a>
 							</td>
 						</tr>
-					  <!--  <tr th:if="${pagina.vazia}">
-							<td colspan="7">Nenhum usuário encontrado</td> 
-						</tr>  -->
+					   	<tr th:if="${pagina.vazia}">
+							<td colspan="6">Nenhum usuário encontrado</td> 
+						</tr>
 					</tbody>
-				</table>
-				
-<!-- 			<brewer:pagination page="${pagina}"/>  -->
-		</div>			
+				</table>				 
+			</div>
+			<brewer:pagination page="${pagina}"/>	
 		</div>
 	</section>
 	<th:block layout:fragment="javascripts-extra">
