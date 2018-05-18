@@ -166,3 +166,28 @@
 	width: 30px;
 	text-alagin: center;	
 }
+
+/* Tabela de cerveja vebdas */
+.bw-tabela-cervejas{
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.bw-tabela-cervejas__vazia{
+	padding: 15px 15px;
+	
+	border: 1px dashed #dddd;
+	
+	text-align: center;
+	font-size: 1.2em;
+	font-weight: 300;
+	color: #555;	
+}
+
+
+
+
+
+
+
+
