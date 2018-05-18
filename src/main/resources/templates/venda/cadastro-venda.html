@@ -73,9 +73,13 @@
 						<input type="hidden" id="idCliente" name="idCliente">
 						<input type="text" class="form-control" name="nomeCliente" readonly="readonly" placeholder="Clique na lupa e faça uma pesquisa rápida">
 						<span class="input-group-btn">
-							<button class="btn  btn-default  js-tooltip" title="Pesquisar clientes" 
-							data-toogle="modal"><i class="glyphicon  glyphicon-search"></i></button>
+							<button type="button" class="btn  btn-default  js-tooltip" title="Pesquisar clientes" 
+							        data-toggle="modal" data-target="#pesquisaRapidaCliente">
+							        <i class="glyphicon  glyphicon-search"></i>
+							</button>
 						</span>
+						
+						<th:block th:replace="cliente/pesquisa-rapida-cliente :: pesquisaRapdiaCliente"></th:block>
 					</div>					
 				</div>
 				
