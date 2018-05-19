@@ -7,6 +7,9 @@
 	  layout:decorate="layout/dashbord">
 <head>
 	<title>Cadastro de uma nova venda</title>
+	
+	<link rel="stylesheet" type="text/css" href="/brewer/stylesheets/vendors/easy-autocomplete.min.css" th:href="@{/stylesheets/vendors/easy-autocomplete.min.css}"/>
+	<link rel="stylesheet" type="text/css" href="/brewer/stylesheets/vendors/easy-autocomplete.themes.min.css" th:href="@{/stylesheets/vendors/easy-autocomplete.themes.min.css}"/>
 </head>
 <body>
 <section layout:fragment="conteudo">
@@ -112,7 +115,7 @@
 					
 					<div class="row">
 						<div class="col-lg-12">
-							<input class="form-control" type="text" placeholder="Pesquisa a cerveja pelo SKU ou nome e adicione" autofocus="autofocus">
+							<input class="form-control  js-sku-nome-cerveja" type="text" placeholder="Pesquisa a cerveja pelo SKU ou nome e adicione" autofocus="autofocus">
 						</div>
 					</div>
 					
@@ -171,11 +174,14 @@
 			
 		</form>
 	</div>
-	<th:block th:replace="cliente/pesquisa-rapida-cliente :: pesquisaRapdiaCliente"></th:block>		
+	<th:block th:replace="cliente/pesquisa-rapida-cliente :: pesquisaRapdiaCliente"></th:block>
+	<th:block th:replace="hbs/TemplateAutocompleteCerveja"></th:block>
 </section>
 <th:block layout:fragment="javascripts-extra">
+	<script th:src="@{/javascripts/vendors/jquery.easy-autocomplete.min.js}"></script>
 	<script th:src="@{/javascripts/vendors/handlebars.min.js}"></script>
-	<script th:src="@{/javascripts/cliente.pesquisa-rapida.js}"></script>	
+	<script th:src="@{/javascripts/cliente.pesquisa-rapida.js}"></script>
+	<script th:src="@{/javascripts/venda.autocomplete-itens.js}"></script>
 	<script>
 		$(function(){
 			$('.js-abas-venda a').click(function(e){
