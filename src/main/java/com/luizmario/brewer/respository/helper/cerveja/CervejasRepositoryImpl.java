@@ -1,5 +1,7 @@
 package com.luizmario.brewer.respository.helper.cerveja;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -15,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import com.luizmario.brewer.dto.CervejaDTO;
 import com.luizmario.brewer.model.Cerveja;
 import com.luizmario.brewer.respository.filter.CervejaFilter;
 import com.luizmario.brewer.respository.paginacao.PaginacaoUtil;
@@ -81,5 +84,15 @@ public class CervejasRepositoryImpl implements CervejasRepositoryQuery {
 
 	private boolean estiloPreenchido(CervejaFilter filtro) {
 		return filtro.getEstilo() != null && filtro.getEstilo().getCodigo() != null;
+	}
+
+	@Override
+	public List<CervejaDTO> buscarPorSkuOuNome(String skuOuNome) {
+		String jpql = " SELECT new com.luizmario.brewer.dto.CervejaDTO(codigo, sku, nome, origem, valor, foto) FROM Cerveja " +
+					  " WHERE lower(sku) like lower(:skuOuNome) OR lower(nome) like lower(:skuOuNome) " ;
+		List<CervejaDTO> cervejasFiltrada = manager.createQuery(jpql, CervejaDTO.class)
+				.setParameter("skuOuNome", skuOuNome + "%")
+				.getResultList();
+		return cervejasFiltrada;
 	}
 }

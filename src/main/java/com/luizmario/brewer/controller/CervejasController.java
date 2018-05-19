@@ -1,5 +1,7 @@
 package com.luizmario.brewer.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -12,10 +14,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.luizmario.brewer.controller.page.PageWrapper;
+import com.luizmario.brewer.dto.CervejaDTO;
 import com.luizmario.brewer.model.Cerveja;
 import com.luizmario.brewer.model.Origem;
 import com.luizmario.brewer.model.Sabor;
@@ -71,6 +75,11 @@ public class CervejasController {
 		mv.addObject("pagina", pagina);
 		
 		return mv;
+	}
+	
+	@RequestMapping("/filtro")
+	public @ResponseBody List<CervejaDTO> buscar(String skuOuNome){
+		return cervejaRepository.buscarPorSkuOuNome(skuOuNome);
 	}
 
 }
