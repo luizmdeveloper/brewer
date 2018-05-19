@@ -14,34 +14,24 @@
 			</div>
 
 			<div class="modal-body">
-				<form>
+				<div class="alert  alert-danger  hidden  js-mensagem-erro" role="alert">
+				  <span class="glyphicon  glyphicon-exclamation-sign" aria-hidden="true"></span>
+				  <span class="sr-only">Error:</span> Para pesquisa informar no mínimo 3 caracteres
+				</div>			
+				<form class="form" th:action="@{/cliente}">
 					<div class="row">
 						<div class="form-group  col-sm-12">
-							<label class="control-label" for="nome">Nome cliente</label> 
-							<input type="text" class="form-control" id="nome" name="nome" autofocus="autofocus" />
+							<label class="control-label" for="nomeClienteModal">Nome cliente</label> 
+							<input type="text" class="form-control" id="nomeClienteModal" name="nome" autofocus="autofocus" />
 						</div>
 					</div>
-					<button type="submit" class="btn  btn-primary">Pesquisar</button>
+					<button type="submit" class="btn  btn-primary  js-pesquisa-rapida-cliente-btn">Pesquisar</button>
 					<a href="#" class="btn  btn-default" data-dismiss="modal">Cancelar</a>
 				</form>
-				<div class="table-responsive  bw-tabela-simples" style="margin-top: 15px">
-					<table class="table  table-hover">
-						<thead>
-							<tr>
-								<th class="col-sm-2">Nome</th>
-								<th class="col-sm-2">Telefone</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td colspan="2">Nenhum cliente encontrado</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+				<div id="containerTabelaPesquisaCliente"></div>
 			</div>
-
 		</div>
 	</div>
+	<th:block th:replace="hbs/tabelaPesquisaRapidaCliente"></th:block>
 </div>
 </html>
