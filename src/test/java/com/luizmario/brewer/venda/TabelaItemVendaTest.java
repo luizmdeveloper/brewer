@@ -1,4 +1,4 @@
-package brewer;
+package com.luizmario.brewer.venda;
 
 import static org.junit.Assert.*;
 
