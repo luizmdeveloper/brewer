@@ -2,6 +2,7 @@ Brewer.TabelaVenda = (function(){
 	
 	function TabelaVenda(autocomplete){
 		this.autocomplete = autocomplete;
+		this.containerTabelaItem = $('.js-container-tabela-item-venda');
 	}
 	
 	TabelaVenda.prototype.iniciar = function(){
@@ -17,9 +18,11 @@ Brewer.TabelaVenda = (function(){
 			}
 		});
 		
-		resposta.done(function(data){
-			console.log(data);
-		});
+		resposta.done(onAdicionadoItem.bind(this));
+	}
+	
+	function onAdicionadoItem(html){
+		this.containerTabelaItem.html(html);
 	}
 	
 	return TabelaVenda

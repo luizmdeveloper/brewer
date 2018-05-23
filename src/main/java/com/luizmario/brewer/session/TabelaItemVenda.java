@@ -35,5 +35,9 @@ public class TabelaItemVenda {
 	public int totalItens() {
 		return itens.size();
 	}
+
+	public List<ItemVenda> getItem() {
+		return itens;
+	}
 	
 }
