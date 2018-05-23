@@ -4,6 +4,7 @@
 	  xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  xmlns:brewer="http://brewer.luizmario.com.br"
+	  xmlns:data="http://www.thymeleaf.org/extras/data"	  
 	  layout:decorate="layout/dashbord">
 <head>
 	<title>Cadastro de uma nova venda</title>
@@ -115,7 +116,8 @@
 					
 					<div class="row">
 						<div class="col-lg-12">
-							<input class="form-control  js-sku-nome-cerveja" type="text" placeholder="Pesquisa a cerveja pelo SKU ou nome e adicione" autofocus="autofocus">
+							<input class="form-control  js-sku-nome-cerveja" type="text" data:url="@{/cerveja}"
+							       placeholder="Pesquisa a cerveja pelo SKU ou nome e adicione" autofocus="autofocus" >
 						</div>
 					</div>
 					
