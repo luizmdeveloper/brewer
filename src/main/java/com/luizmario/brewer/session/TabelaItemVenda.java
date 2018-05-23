@@ -1,12 +1,17 @@
-package com.luizmario.brewer.venda;
+package com.luizmario.brewer.session;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.SessionScope;
+
 import com.luizmario.brewer.model.Cerveja;
 import com.luizmario.brewer.model.ItemVenda;
 
+@SessionScope
+@Component
 public class TabelaItemVenda {
 
 	private List<ItemVenda> itens = new ArrayList<ItemVenda>();
@@ -25,6 +30,10 @@ public class TabelaItemVenda {
 		item.setValorUnitario(cerveja.getValor());
 		
 		itens.add(item);
+	}
+	
+	public int totalItens() {
+		return itens.size();
 	}
 	
 }

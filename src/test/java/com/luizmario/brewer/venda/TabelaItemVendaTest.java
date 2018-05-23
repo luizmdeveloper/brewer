@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.luizmario.brewer.model.Cerveja;
-import com.luizmario.brewer.venda.TabelaItemVenda;
+import com.luizmario.brewer.session.TabelaItemVenda;
 
 public class TabelaItemVendaTest {
 	
