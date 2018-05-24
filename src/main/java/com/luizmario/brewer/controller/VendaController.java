@@ -3,7 +3,9 @@ package com.luizmario.brewer.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -36,5 +38,14 @@ public class VendaController {
 		mv.addObject("itens", tabelaItemVenda.getItem());
 		return mv;
 	} 
+	
+	@PutMapping("/item/{codigoCerveja}")
+	public ModelAndView atualizarQuantidadeItem(@PathVariable Long codigoCerveja, Integer quantidade) {
+		Cerveja cerveja = cervejasRepository.findOne(codigoCerveja);
+		tabelaItemVenda.atualizaQuantidadeItem(cerveja, quantidade);
+		ModelAndView mv = new ModelAndView("venda/tabela-item-venda");
+		mv.addObject("itens", tabelaItemVenda.getItem());
+		return mv;
+	}
 
 }
