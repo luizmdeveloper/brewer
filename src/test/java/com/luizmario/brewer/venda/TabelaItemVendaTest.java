@@ -80,4 +80,28 @@ public class TabelaItemVendaTest {
 		assertEquals(new BigDecimal("19.80"), itens.getValorTotal());
 		assertEquals(1, itens.getTotaisItens());
 	}
+	
+	@Test
+	public void excluirItemPorCerveja() throws Exception {
+		Cerveja c1 = new Cerveja();
+		c1.setCodigo(1L);
+		c1.setValor(new BigDecimal("8.90"));
+
+		Cerveja c2 = new Cerveja();
+		c2.setCodigo(2L);
+		c2.setValor(new BigDecimal("4.95"));
+		
+		Cerveja c3 = new Cerveja();
+		c3.setCodigo(3L);
+		c3.setValor(new BigDecimal("2.00"));
+		
+		itens.adicionarItem(c1, 1);
+		itens.adicionarItem(c2, 2);
+		itens.adicionarItem(c3, 1);
+		
+		itens.removerItem(c2);
+		
+		assertEquals(new BigDecimal("10.90"), itens.getValorTotal());
+		assertEquals(2, itens.getTotaisItens());
+	}
 }

@@ -2,6 +2,7 @@ package com.luizmario.brewer.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,15 +35,22 @@ public class VendaController {
 	public ModelAndView adicionarItem(Long codigoCerveja) {		
 		Cerveja cerveja = cervejasRepository.findOne(codigoCerveja);		
 		tabelaItemVenda.adicionarItem(cerveja, 1);
-		ModelAndView mv = new ModelAndView("venda/tabela-item-venda");
-		mv.addObject("itens", tabelaItemVenda.getItem());
-		return mv;
+		return mvTabelaItemVenda();
 	} 
 	
 	@PutMapping("/item/{codigoCerveja}")
-	public ModelAndView atualizarQuantidadeItem(@PathVariable Long codigoCerveja, Integer quantidade) {
-		Cerveja cerveja = cervejasRepository.findOne(codigoCerveja);
+	public ModelAndView atualizarQuantidadeItem(@PathVariable("codigoCerveja") Cerveja cerveja, Integer quantidade) {
 		tabelaItemVenda.atualizaQuantidadeItem(cerveja, quantidade);
+		return mvTabelaItemVenda();
+	}
+	
+	@DeleteMapping("/item/{codigoCerveja}")
+	public ModelAndView removerCerveja(@PathVariable("codigoCerveja") Cerveja cerveja) {
+		tabelaItemVenda.removerItem(cerveja);
+		return mvTabelaItemVenda();
+	}
+
+	private ModelAndView mvTabelaItemVenda() {
 		ModelAndView mv = new ModelAndView("venda/tabela-item-venda");
 		mv.addObject("itens", tabelaItemVenda.getItem());
 		return mv;
