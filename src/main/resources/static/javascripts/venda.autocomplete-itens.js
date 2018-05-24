@@ -39,7 +39,6 @@ Brewer.Autocomplete = (function(){
 			this.emitter.trigger('item-selecionado', this.skuOuNomeInput.getSelectedItemData());
 			this.skuOuNomeInput.val('');
 			this.skuOuNomeInput.focus();
-			
 		}
 		
 		this.skuOuNomeInput.easyAutocomplete(options);

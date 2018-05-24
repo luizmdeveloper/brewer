@@ -1,4 +1,4 @@
-package com.luizmario.brewer.venda;
+package com.luizmario.brewer.session;
 
 import static org.junit.Assert.*;
 
@@ -16,7 +16,7 @@ public class TabelaItemVendaTest {
 	
 	@Before
 	public void setUp() {
-		this.itens = new TabelaItemVenda();
+		this.itens = new TabelaItemVenda("1");
 	}
 
 	@Test

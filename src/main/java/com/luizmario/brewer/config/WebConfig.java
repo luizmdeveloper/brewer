@@ -43,13 +43,13 @@ import com.luizmario.brewer.controller.converter.CidadeConverter;
 import com.luizmario.brewer.controller.converter.EstadoConverter;
 import com.luizmario.brewer.controller.converter.EstiloConverter;
 import com.luizmario.brewer.controller.converter.GrupoConverter;
-import com.luizmario.brewer.session.TabelaItemVenda;
+import com.luizmario.brewer.session.TabelaItemSession;
 import com.luizmario.brewer.thymeleaf.BrewerDialect;
 
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 @Configuration
-@ComponentScan(basePackageClasses = { CervejasController.class, TabelaItemVenda.class })
+@ComponentScan(basePackageClasses = { CervejasController.class, TabelaItemSession.class })
 @EnableWebMvc
 @EnableSpringDataWebSupport
 @EnableCaching
