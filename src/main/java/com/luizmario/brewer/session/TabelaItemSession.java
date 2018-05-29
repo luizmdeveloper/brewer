@@ -1,5 +1,6 @@
 package com.luizmario.brewer.session;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -34,6 +35,10 @@ public class TabelaItemSession {
 
 	public List<ItemVenda> getItem(String uuid) {
 		return buscarTabelaPorUuid(uuid).getItem();
+	}
+
+	public BigDecimal getValorTotalItens(String uuid) {
+		return buscarTabelaPorUuid(uuid).getValorTotal();
 	}
 
 	private TabelaItemVenda buscarTabelaPorUuid(String uuid) {
