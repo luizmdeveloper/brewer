@@ -33,7 +33,7 @@ public class TabelaItemSession {
 		itemVenda.removerItem(cerveja);		
 	}
 
-	public List<ItemVenda> getItem(String uuid) {
+	public List<ItemVenda> getItens(String uuid) {
 		return buscarTabelaPorUuid(uuid).getItem();
 	}
 

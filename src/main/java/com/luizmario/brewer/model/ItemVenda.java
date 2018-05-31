@@ -71,6 +71,14 @@ public class ItemVenda implements Serializable {
 		return valorUnitario.multiply(new BigDecimal(quantidade));
 	}
 
+	public Venda getVenda() {
+		return venda;
+	}
+
+	public void setVenda(Venda venda) {
+		this.venda = venda;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

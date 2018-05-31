@@ -2,9 +2,12 @@ package com.luizmario.brewer.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -16,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "venda")
@@ -27,11 +31,11 @@ public class Venda implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 	
-	@Column(name = "date_ciracao")
-	private LocalTime dataCriacao;
+	@Column(name = "data_criacao")
+	private LocalDateTime dataCriacao;
 	
 	@ManyToOne
-	@JoinColumn(name = "codigo_ciente")
+	@JoinColumn(name = "codigo_cliente")
 	private Cliente cliente;
 	
 	@Column(name= "valor_frete")
@@ -45,14 +49,27 @@ public class Venda implements Serializable {
 	
 	private String observacao;
 	
-	@Column(name = "data_entrega")
-	private LocalTime dataEntrega;
+	@Column(name = "data_hora_entrega")
+	private LocalDateTime dataHoraEntrega;
 	
-	@OneToMany(mappedBy = "venda")
+	@OneToMany(mappedBy = "venda", cascade = CascadeType.ALL)
 	private List<ItemVenda> itens;
 	
+	@ManyToOne
+	@JoinColumn(name = "codigo_usuario")
+	private Usuario usuario;
+	
 	@Enumerated(EnumType.STRING)
-	private StatusVenda status;
+	private StatusVenda status = StatusVenda.ORCAMENTO;
+	
+	@Transient
+	private LocalDate dataEntrega;
+	
+	@Transient
+	private LocalTime horarioEntrega;
+	
+	@Transient
+	private String uuid;
 
 	public Long getCodigo() {
 		return codigo;
@@ -60,14 +77,6 @@ public class Venda implements Serializable {
 
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
-	}
-
-	public LocalTime getDataCriacao() {
-		return dataCriacao;
-	}
-
-	public void setDataCriacao(LocalTime dataCriacao) {
-		this.dataCriacao = dataCriacao;
 	}
 
 	public Cliente getCliente() {
@@ -110,14 +119,79 @@ public class Venda implements Serializable {
 		this.observacao = observacao;
 	}
 
-	public LocalTime getDataEntrega() {
+	public List<ItemVenda> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<ItemVenda> itens) {
+		this.itens = itens;
+	}
+
+	public StatusVenda getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusVenda status) {
+		this.status = status;
+	}
+	
+	public LocalDateTime getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(LocalDateTime dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public LocalDateTime getDataHoraEntrega() {
+		return dataHoraEntrega;
+	}
+
+	public void setDataHoraEntrega(LocalDateTime dataHoraEntrega) {
+		this.dataHoraEntrega = dataHoraEntrega;
+	}
+
+	public LocalDate getDataEntrega() {
 		return dataEntrega;
 	}
 
-	public void setDataEntrega(LocalTime dataEntrega) {
+	public void setDataEntrega(LocalDate dataEntrega) {
 		this.dataEntrega = dataEntrega;
 	}
 
+	public LocalTime getHorarioEntrega() {
+		return horarioEntrega;
+	}
+
+	public void setHorarioEntrega(LocalTime horarioEntrega) {
+		this.horarioEntrega = horarioEntrega;
+	}
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	public boolean isNova() {
+		return this.codigo == null;
+	}
+
+	public void adicionarItens(List<ItemVenda> itens) {
+		this.itens = itens;
+		itens.forEach(i -> i.setVenda(this));
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -142,4 +216,5 @@ public class Venda implements Serializable {
 			return false;
 		return true;
 	}
+
 }

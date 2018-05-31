@@ -7,8 +7,8 @@ CREATE TABLE venda(
 	valor_frete DECIMAL(10, 2),
 	valor_desconto DECIMAL(10, 2),
 	valor_total DECIMAL(10, 2),
-	observao VARCHAR(200),
-	data_entrega DATETIME,
+	observacao VARCHAR(200),
+	data_hora_entrega DATETIME,
 	FOREIGN KEY (codigo_usuario) REFERENCES usuario(codigo),
 	FOREIGN KEY (codigo_cliente) REFERENCES cliente(codigo)
 )ENGINE=InnoDB DEFAULT charset=utf8;
