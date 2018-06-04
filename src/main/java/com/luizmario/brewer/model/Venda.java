@@ -5,7 +5,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -45,7 +47,7 @@ public class Venda implements Serializable {
 	private BigDecimal valorDesconto;
 	
 	@Column(name= "valor_total")
-	private BigDecimal valorTotal;
+	private BigDecimal valorTotal = BigDecimal.ZERO;
 	
 	private String observacao;
 	
@@ -53,7 +55,7 @@ public class Venda implements Serializable {
 	private LocalDateTime dataHoraEntrega;
 	
 	@OneToMany(mappedBy = "venda", cascade = CascadeType.ALL)
-	private List<ItemVenda> itens;
+	private List<ItemVenda> itens = new ArrayList<ItemVenda>();
 	
 	@ManyToOne
 	@JoinColumn(name = "codigo_usuario")
@@ -192,6 +194,21 @@ public class Venda implements Serializable {
 		itens.forEach(i -> i.setVenda(this));
 	}
 	
+	public void calcularValoTotal() {
+		BigDecimal valorTotalItens = this.getItens().stream()
+				.map(ItemVenda::getValorTotal)
+				.reduce(BigDecimal::add)
+				.orElse(BigDecimal.ZERO);
+
+		this.valorTotal = calcularValorTotalVenda(valorTotalItens, getValorFrete(), getValorDesconto());		
+	}
+	
+	private BigDecimal calcularValorTotalVenda(BigDecimal valorTotalItens, BigDecimal valorFrete, BigDecimal valorDesconto) {
+		return valorTotalItens
+				.add(Optional.ofNullable(valorFrete).orElse(BigDecimal.ZERO))
+				.subtract(Optional.ofNullable(valorDesconto).orElse(BigDecimal.ZERO));
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

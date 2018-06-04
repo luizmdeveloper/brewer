@@ -10,6 +10,13 @@ Brewer.TabelaVenda = (function(){
 	
 	TabelaVenda.prototype.iniciar = function(){
 		this.autocomplete.emitter.on('item-selecionado', onItemSelecionado.bind(this));
+		
+		bindQuantidade.call(this);
+		bindTabelaItem.call(this);
+	}
+	
+	TabelaVenda.prototype.valorTotal = function (){
+		return this.containerTabelaItem.data('valor');
 	}
 	
 	function onItemSelecionado(event, item){
@@ -27,15 +34,10 @@ Brewer.TabelaVenda = (function(){
 	
 	function onAtualizarTabelaItem(html){
 		this.containerTabelaItem.html(html);
-		var quantidadeInput = $('.js-quantidade-tabela-item-cerveja'); 
-		$('.js-quantidade-tabela-item-cerveja').on('change', onQuantidadeAlterada.bind(this));
-		quantidadeInput.maskMoney({precision : 0, thousands : '.'});
 		
-		$('.js-tabela-item-exclusao-btn').on('click', onExcluirItemClick.bind(this));
-		
-		var tabelaItem = $('.js-tabela-item');
-		tabelaItem.on('dblclick', onDoubleClickItem);
-		this.emitter.trigger('valor-total-atualizado', tabelaItem.data('valor-total'));		
+		bindQuantidade.call(this);		
+		var tabelaItem = bindTabelaItem.call(this);
+		this.emitter.trigger('valor-total-atualizado', tabelaItem.data('valor-total'));
 	}
 	
 	function onQuantidadeAlterada(evento){
@@ -74,6 +76,20 @@ Brewer.TabelaVenda = (function(){
 		});
 		
 		resposta.done(onAtualizarTabelaItem.bind(this));
+	}
+	
+	function bindQuantidade(){
+		var quantidadeInput = $('.js-quantidade-tabela-item-cerveja'); 
+		$('.js-quantidade-tabela-item-cerveja').on('change', onQuantidadeAlterada.bind(this));
+		quantidadeInput.maskMoney({precision : 0, thousands : '.'});
+	}
+	
+	function bindTabelaItem(){
+		var tabelaItem = $('.js-tabela-item');
+		tabelaItem.on('dblclick', onDoubleClickItem);
+		$('.js-tabela-item-exclusao-btn').on('click', onExcluirItemClick.bind(this));
+		
+		return tabelaItem;
 	}
 	
 	return TabelaVenda	
