@@ -63,13 +63,10 @@ public class VendaController {
 		return mv;
 	}
 	
-	@PostMapping("/nova")
+	@PostMapping(value="/nova", params="salvar")
 	public ModelAndView salvar(Venda venda, BindingResult result, RedirectAttributes attributes, @AuthenticationPrincipal UsuarioSistema usuarioSistema) {
 		venda.setUsuario(usuarioSistema.getUsuario());
-		venda.adicionarItens(tabelaItem.getItens(venda.getUuid()));
-		venda.calcularValoTotal();
-
-		vendaValidator.validate(venda, result);
+		validarVenda(venda, result);
 
 		if (result.hasErrors()) {
 			return nova(venda);
@@ -77,10 +74,41 @@ public class VendaController {
 		
 		vendaService.salvar(venda);
 		
-		attributes.addFlashAttribute("messagem", "venda salva com sucesso!");
+		attributes.addFlashAttribute("mensagem", "Venda salva com sucesso!");
 		return new ModelAndView("redirect:/venda/nova");
 	}
 	
+	@PostMapping(value="/nova", params="emitir")
+	public ModelAndView emitir(Venda venda, BindingResult result, RedirectAttributes attributes, @AuthenticationPrincipal UsuarioSistema usuarioSistema) {
+		venda.setUsuario(usuarioSistema.getUsuario());
+		validarVenda(venda, result);
+
+		if (result.hasErrors()) {
+			return nova(venda);
+		}
+		
+		vendaService.emitir(venda);
+		
+		attributes.addFlashAttribute("mensagem", "Venda emitida com sucesso!");
+		return new ModelAndView("redirect:/venda/nova");
+	}
+
+
+	@PostMapping(value="/nova", params="enviarEmail")
+	public ModelAndView enviarEmail(Venda venda, BindingResult result, RedirectAttributes attributes, @AuthenticationPrincipal UsuarioSistema usuarioSistema) {
+		venda.setUsuario(usuarioSistema.getUsuario());
+		validarVenda(venda, result);
+
+		if (result.hasErrors()) {
+			return nova(venda);
+		}
+		
+		vendaService.salvar(venda);
+		
+		attributes.addFlashAttribute("mensagem", "Venda salva e enviada para email com sucesso!");
+		return new ModelAndView("redirect:/venda/nova");
+	}
+
 	@PostMapping("/item")
 	public ModelAndView adicionarItem(Long codigoCerveja, String uuid) {		
 		Cerveja cerveja = cervejasRepository.findOne(codigoCerveja);		
@@ -100,6 +128,13 @@ public class VendaController {
 		return mvTabelaItemVenda(uuid);
 	}
 
+	private void validarVenda(Venda venda, BindingResult result) {
+		venda.adicionarItens(tabelaItem.getItens(venda.getUuid()));
+		venda.calcularValoTotal();
+		
+		vendaValidator.validate(venda, result);
+	}
+	
 	private ModelAndView mvTabelaItemVenda(String uuid) {
 		ModelAndView mv = new ModelAndView("venda/tabela-item-venda");
 		mv.addObject("itens", tabelaItem.getItens(uuid));

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.luizmario.brewer.model.StatusVenda;
 import com.luizmario.brewer.model.Venda;
 import com.luizmario.brewer.respository.VendaRepository;
 
@@ -27,6 +28,12 @@ public class VendaService {
 		}
 		
 		vendaRepository.save(venda);
+	}
+
+	@Transactional
+	public void emitir(Venda venda) {
+		venda.setStatus(StatusVenda.EMITIDA);
+		salvar(venda);
 	}
 
 }
