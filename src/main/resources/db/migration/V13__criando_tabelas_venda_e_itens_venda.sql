@@ -2,7 +2,7 @@ CREATE TABLE venda(
 	codigo BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
 	codigo_usuario BIGINT(20) NOT NULL,
 	codigo_cliente BIGINT(20) NOT NULL,
-	data_criacao DATETIME,
+	data_criacao DATETIME NOT NULL,
 	status VARCHAR(30) NOT NULL,
 	valor_frete DECIMAL(10, 2),
 	valor_desconto DECIMAL(10, 2),

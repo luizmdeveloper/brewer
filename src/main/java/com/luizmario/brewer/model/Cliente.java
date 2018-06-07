@@ -67,9 +67,7 @@ public class Cliente implements Serializable {
 	
 	@PrePersist @PreUpdate 
 	private void prePersistPreUpdate() {
-		System.out.println("cnpj/cpf antes de remover a formatação " + this.cpfOuCnpj);
 		this.cpfOuCnpj = TipoPessoa.removerFormatacao(this.cpfOuCnpj);
-		System.out.println("cnpj ou cpf " + TipoPessoa.removerFormatacao(this.cpfOuCnpj));
 	}
 	
 	@PostLoad

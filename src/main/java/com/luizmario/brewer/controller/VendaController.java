@@ -2,7 +2,11 @@ package com.luizmario.brewer.controller;
 
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -18,10 +22,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.luizmario.brewer.controller.page.PageWrapper;
 import com.luizmario.brewer.controller.validator.VendaValidator;
 import com.luizmario.brewer.model.Cerveja;
+import com.luizmario.brewer.model.StatusVenda;
 import com.luizmario.brewer.model.Venda;
 import com.luizmario.brewer.respository.CervejasRepository;
+import com.luizmario.brewer.respository.VendaRepository;
+import com.luizmario.brewer.respository.filter.VendaFilter;
 import com.luizmario.brewer.security.UsuarioSistema;
 import com.luizmario.brewer.service.VendaService;
 import com.luizmario.brewer.session.TabelaItemSession;
@@ -42,9 +50,22 @@ public class VendaController {
 	@Autowired
 	private VendaValidator vendaValidator;
 	
-	@InitBinder
+	@Autowired
+	private VendaRepository vendaRepository;
+	
+	@InitBinder("venda")
 	public void iniciarValidadores(WebDataBinder binder) {
 		binder.setValidator(vendaValidator);
+	}
+
+	@GetMapping
+	public ModelAndView buscar(VendaFilter vendaFilter,@PageableDefault(size = 5) Pageable page, HttpServletRequest httpServletRequest) {
+		ModelAndView mv = new ModelAndView("venda/pesquisar-venda");
+		PageWrapper<Venda> pagina = new PageWrapper<>(vendaRepository.filtrar(vendaFilter, page), httpServletRequest);		
+		mv.addObject("pagina", pagina);
+		mv.addObject("todosStatus", StatusVenda.values());
+				
+		return mv;
 	}
 	
 	@GetMapping("/nova")
@@ -127,7 +148,7 @@ public class VendaController {
 		tabelaItem.removerItem(uuid, cerveja);
 		return mvTabelaItemVenda(uuid);
 	}
-
+	
 	private void validarVenda(Venda venda, BindingResult result) {
 		venda.adicionarItens(tabelaItem.getItens(venda.getUuid()));
 		venda.calcularValoTotal();
