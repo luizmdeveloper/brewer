@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.luizmario.brewer.controller.page.PageWrapper;
 import com.luizmario.brewer.controller.validator.VendaValidator;
+import com.luizmario.brewer.mailer.Mailer;
 import com.luizmario.brewer.model.Cerveja;
 import com.luizmario.brewer.model.StatusVenda;
 import com.luizmario.brewer.model.Venda;
@@ -52,6 +53,9 @@ public class VendaController {
 	
 	@Autowired
 	private VendaRepository vendaRepository;
+	
+	@Autowired
+	private Mailer mailer;
 	
 	@InitBinder("venda")
 	public void iniciarValidadores(WebDataBinder binder) {
@@ -125,7 +129,8 @@ public class VendaController {
 		}
 		
 		vendaService.salvar(venda);
-		
+		mailer.enviar(venda);
+				
 		attributes.addFlashAttribute("mensagem", "Venda salva e enviada para email com sucesso!");
 		return new ModelAndView("redirect:/venda/nova");
 	}
