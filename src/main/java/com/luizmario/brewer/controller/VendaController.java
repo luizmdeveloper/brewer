@@ -97,7 +97,7 @@ public class VendaController {
 			return nova(venda);
 		}
 		
-		vendaService.salvar(venda);
+		venda = vendaService.salvar(venda);
 		
 		attributes.addFlashAttribute("mensagem", "Venda salva com sucesso!");
 		return new ModelAndView("redirect:/venda/nova");
@@ -128,10 +128,10 @@ public class VendaController {
 			return nova(venda);
 		}
 		
-		vendaService.salvar(venda);
+		venda = vendaService.salvar(venda);
 		mailer.enviar(venda);
 				
-		attributes.addFlashAttribute("mensagem", "Venda salva e enviada para email com sucesso!");
+		attributes.addFlashAttribute("mensagem", String.format("Venda salva nº %d com sucesso e enviada para email", venda.getCodigo()));
 		return new ModelAndView("redirect:/venda/nova");
 	}
 

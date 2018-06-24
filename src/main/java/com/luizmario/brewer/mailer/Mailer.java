@@ -1,6 +1,7 @@
 package com.luizmario.brewer.mailer;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.mail.MessagingException;
@@ -40,7 +41,7 @@ public class Mailer {
 	@Async
 	public void enviar(Venda venda) {
 		
-		Context context = new Context();
+		Context context = new Context(new Locale("pt", "BR"));
 		context.setVariable("venda", venda);
 		context.setVariable("logo", "logo");
 		
@@ -65,7 +66,7 @@ public class Mailer {
 			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 			helper.setFrom("luizmariodev@gmail.com");		
 			helper.setTo(venda.getCliente().getEmail());
-			helper.setSubject("Brewer - nova venda realizada!");
+			helper.setSubject(String.format("Brewer nº %d venda realizada!", venda.getCodigo()));
 			helper.setText(corpoEmail, true);
 			
 			helper.addInline("logo", new ClassPathResource("static/images/logo-gray.png"));
