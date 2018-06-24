@@ -11,4 +11,6 @@ public interface FotoStorage {
 	public byte[] buscarFoto(String nome);
 	
 	public void salvar(String nome);
+	
+	public byte[] buscarFotoThumbnail(String nome);
 }

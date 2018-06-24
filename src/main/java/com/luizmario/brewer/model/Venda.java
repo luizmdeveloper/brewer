@@ -194,13 +194,16 @@ public class Venda implements Serializable {
 		itens.forEach(i -> i.setVenda(this));
 	}
 	
-	public void calcularValoTotal() {
-		BigDecimal valorTotalItens = this.getItens().stream()
+	public BigDecimal getValorTotalItens() {
+		return this.getItens().stream()
 				.map(ItemVenda::getValorTotal)
 				.reduce(BigDecimal::add)
 				.orElse(BigDecimal.ZERO);
-
-		this.valorTotal = calcularValorTotalVenda(valorTotalItens, getValorFrete(), getValorDesconto());		
+		
+	}
+	
+	public void calcularValoTotal() {
+		this.valorTotal = calcularValorTotalVenda(getValorTotalItens(), getValorFrete(), getValorDesconto());		
 	}
 	
 	private BigDecimal calcularValorTotalVenda(BigDecimal valorTotalItens, BigDecimal valorFrete, BigDecimal valorDesconto) {
