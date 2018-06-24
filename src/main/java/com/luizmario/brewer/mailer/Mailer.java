@@ -66,7 +66,7 @@ public class Mailer {
 			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 			helper.setFrom("luizmariodev@gmail.com");		
 			helper.setTo(venda.getCliente().getEmail());
-			helper.setSubject(String.format("Brewer nº %d venda realizada!", venda.getCodigo()));
+			helper.setSubject(String.format("Brewer nova venda realizada nº %d", venda.getCodigo()));
 			helper.setText(corpoEmail, true);
 			
 			helper.addInline("logo", new ClassPathResource("static/images/logo-gray.png"));
