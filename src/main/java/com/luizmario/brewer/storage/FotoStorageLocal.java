@@ -17,6 +17,7 @@ import net.coobird.thumbnailator.name.Rename;
 public class FotoStorageLocal implements FotoStorage {
 	
 	public static final Logger logger = LoggerFactory.getLogger(FotoStorageLocal.class);
+	public static final String THUMBNAIL = "thumbnail.";
 	
 	private Path local;
 	private Path localTemporario;
@@ -66,9 +67,19 @@ public class FotoStorageLocal implements FotoStorage {
 	
 	@Override
 	public byte[] buscarFotoThumbnail(String nome) {
-		return buscarFoto("thumbnail." + nome);
+		return buscarFoto(THUMBNAIL + nome);
 	}
 
+	@Override
+	public void apagar(String foto) {
+		try {
+			Files.deleteIfExists(this.local.resolve(foto));
+			Files.deleteIfExists(this.local.resolve(THUMBNAIL + foto));
+		} catch (IOException e) {
+			logger.warn(String.format("Erro ao excluir foto: %s", this.local.resolve(foto), e));
+		}
+		
+	}
 	
 	@Override
 	public void salvar(String nome) {
@@ -112,5 +123,6 @@ public class FotoStorageLocal implements FotoStorage {
 		
 		return novoNome;
 	}
+
 
 }
