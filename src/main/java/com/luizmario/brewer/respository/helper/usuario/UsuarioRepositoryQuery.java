@@ -15,7 +15,8 @@ public interface UsuarioRepositoryQuery {
 	
 	public List<String> findPermissoesByUsuario(Usuario usuario);
 	
+	public Page<Usuario> filtar(UsuarioFilter usuarioFilter, Pageable page);
 	
-	public Page<Usuario> filtar(UsuarioFilter usuarioFilter, Pageable page); 
+	public Usuario buscarPor(Long codigo);
 
 }
