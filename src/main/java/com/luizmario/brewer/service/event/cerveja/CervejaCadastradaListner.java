@@ -12,7 +12,7 @@ public class CervejaCadastradaListner {
 	@Autowired
 	private FotoStorage fotoStorage;
 	
-	@EventListener(condition="#evento.isFoto()")
+	@EventListener(condition="#evento.isFoto() and #evento.isNovaFoto()")
 	public void salvar(CervejaCadastradaEvent evento){
 		fotoStorage.salvar(evento.getCerveja().getFoto());
 	}

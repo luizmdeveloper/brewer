@@ -19,4 +19,9 @@ public class CervejaCadastradaEvent {
 	public boolean isFoto(){
 		return !StringUtils.isEmpty(cerveja.getFoto());
 	}
+	
+	public boolean isNovaFoto() {
+		return cerveja.isNovaFoto();
+	}
+
 }

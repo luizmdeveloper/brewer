@@ -6,6 +6,7 @@ Brewer.UploadFoto = (function(){
 		this.inputFotoCerveja = $('input[name=foto]');
 		this.inputContentType = $('input[name=contentType]');
 		this.uploadFoto = $('#upload-drop');
+		this.novaFoto = $('input[name=novaFoto]');
 		
 		this.containerFotoCerveja = $('.js-container-foto');						
 		this.htmlFotoCervejaTemplate  = $('#foto-cerveja').html();
@@ -26,18 +27,27 @@ Brewer.UploadFoto = (function(){
 		UIkit.uploadDrop(this.uploadFoto, settings);
 		
 		if (this.inputFotoCerveja.val()){
-			onCompleteUpload.call(this, {nomeFoto: this.inputFotoCerveja.val(), contentType: this.inputContentType.val()});
+			renderizarFoto.call(this, {nomeFoto: this.inputFotoCerveja.val(), contentType: this.inputContentType.val()});
 		}
 	}
 		
 	function onCompleteUpload(resposta){
+		this.novaFoto.val('true');
+		rendereizarFoto.call(this, resposta);
+	}
+	
+	function renderizarFoto(resposta){
 		this.inputFotoCerveja.val(resposta.nomeFoto);
-		this.inputContentType.val(resposta.contentType);					
+		this.inputContentType.val(resposta.contentType);
 		
-		console.log(resposta);
+		var foto = '';		
+		if (this.novaFoto.val() == 'true') {
+			foto = 'temp/';
+		}
+		foto += resposta.nomeFoto;
 		
 		this.uploadFoto.addClass('hidden');
-		var htmlFotoCerveja = this.template({nomeFoto: resposta.nomeFoto});
+		var htmlFotoCerveja = this.template({foto: foto});
 		this.containerFotoCerveja.append(htmlFotoCerveja);
 		
 		$('.js-remove-foto').on('click', onRemoveFoto.bind(this));
@@ -48,6 +58,7 @@ Brewer.UploadFoto = (function(){
 		this.inputContentType.val('');
 		this.uploadFoto.removeClass('hidden');	
 		$('.js-foto-cerveja').remove();
+		this.novaFoto.val('false');
 	}
 	
 	function addCsrfToken(xhr){
