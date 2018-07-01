@@ -26,6 +26,7 @@ import com.luizmario.brewer.controller.page.PageWrapper;
 import com.luizmario.brewer.controller.validator.VendaValidator;
 import com.luizmario.brewer.mailer.Mailer;
 import com.luizmario.brewer.model.Cerveja;
+import com.luizmario.brewer.model.ItemVenda;
 import com.luizmario.brewer.model.StatusVenda;
 import com.luizmario.brewer.model.Venda;
 import com.luizmario.brewer.respository.CervejasRepository;
@@ -76,14 +77,12 @@ public class VendaController {
 	public ModelAndView nova(Venda venda) {
 		ModelAndView mv = new ModelAndView("venda/cadastro-venda");
 		
-		if (StringUtils.isEmpty(venda.getUuid())) {
-			venda.setUuid(UUID.randomUUID().toString());
-		}
+		setUuid(venda);
 		
 		mv.addObject("itens", venda.getItens());
-		mv.addObject("valorTotal", venda.getValorTotal());
 		mv.addObject("valorFrete", venda.getValorFrete());
 		mv.addObject("valorDesconto", venda.getValorDesconto());
+		mv.addObject("valorTotalItens", tabelaItem.getValorTotalItens(venda.getUuid()));
 		
 		return mv;
 	}
@@ -152,6 +151,26 @@ public class VendaController {
 	public ModelAndView removerCerveja(@PathVariable String uuid, @PathVariable("codigoCerveja") Cerveja cerveja) {
 		tabelaItem.removerItem(uuid, cerveja);
 		return mvTabelaItemVenda(uuid);
+	}
+	
+	@GetMapping("/{codigo}")
+	public ModelAndView editar(@PathVariable Long codigo) {
+		Venda venda = vendaRepository.buscarComItens(codigo);		
+
+		setUuid(venda);
+		for (ItemVenda item : venda.getItens()) {
+			tabelaItem.adicionarItem(venda.getUuid(), item.getCerveja(), item.getQuantidade());
+		}		
+		
+		ModelAndView mv = nova(venda);
+		mv.addObject(venda);
+		return mv;
+	}
+	
+	private void setUuid(Venda venda) {
+		if (StringUtils.isEmpty(venda.getUuid())) {
+			venda.setUuid(UUID.randomUUID().toString());
+		}
 	}
 	
 	private void validarVenda(Venda venda, BindingResult result) {

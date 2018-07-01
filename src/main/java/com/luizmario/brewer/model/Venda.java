@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -54,7 +55,7 @@ public class Venda implements Serializable {
 	@Column(name = "data_hora_entrega")
 	private LocalDateTime dataHoraEntrega;
 	
-	@OneToMany(mappedBy = "venda", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "venda", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ItemVenda> itens = new ArrayList<ItemVenda>();
 	
 	@ManyToOne
@@ -206,11 +207,17 @@ public class Venda implements Serializable {
 		this.valorTotal = calcularValorTotalVenda(getValorTotalItens(), getValorFrete(), getValorDesconto());		
 	}
 	
+	public Long getDiasDeCriacao() {
+		LocalDate inicio = this.dataCriacao != null ? this.dataCriacao.toLocalDate() : LocalDate.now();
+		return ChronoUnit.DAYS.between(inicio, LocalDate.now());
+	}
+	
 	private BigDecimal calcularValorTotalVenda(BigDecimal valorTotalItens, BigDecimal valorFrete, BigDecimal valorDesconto) {
 		return valorTotalItens
 				.add(Optional.ofNullable(valorFrete).orElse(BigDecimal.ZERO))
 				.subtract(Optional.ofNullable(valorDesconto).orElse(BigDecimal.ZERO));
 	}
+	
 
 	@Override
 	public int hashCode() {

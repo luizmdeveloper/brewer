@@ -17,9 +17,8 @@
 	<div class="page-header">
 		<div class="container-fluid">
 			<div class="col-sm-10">
-				<h1>
-					Nova venda
-				</h1>
+				<h1 th:if="${venda.nova}">Nova venda</h1>
+				<h1 th:unless="${venda.nova}">Edição da venda nº [[${venda.codigo}]]</h1>
 			</div>
 			<div class="col-sm-2">
 				<div class="aw-page-header-controls">
@@ -35,6 +34,7 @@
 			<brewer:message/>
 		
 			<input type="hidden" id="uuid" th:field="*{uuid}"/>
+			<input type="hidden" th:field="*{codigo}"/>
 			<div class="row">
 
 				<div class="col-sm-4">
@@ -52,7 +52,7 @@
 						<div class="aw-box__icon">
 							<i class="fa  fa-tag  fa-3x"></i>
 						</div>
-						<div class="aw-box__value">Orçamento</div>
+						<div class="aw-box__value" th:text="${venda.status.descricao}">Orçamento</div>
 						<div class="aw-box__title">status</div>						
 					</div>
 				</div>
@@ -63,7 +63,9 @@
 							<i class="fa  fa-calendar  fa-3x"></i>
 						</div>
 						<div class="aw-box__value">
-							<span class="js-tooltip">Hoje</span>
+							<span class="js-tooltip" th:if="${venda.diasDeCriacao == 0}">Hoje</span>
+							<span class="js-tooltip" th:if="${venda.diasDeCriacao == 1}">Há 1 dia</span>
+							<span class="js-tooltip" th:if="${venda.diasDeCriacao >= 2}">Há [[${venda.diasDeCriacao}]] dias</span>
 						</div>
 						<div class="aw-box__title">Emissão</div>						
 					</div>
@@ -123,10 +125,9 @@
 							<input class="form-control  js-sku-nome-cerveja" type="text" data:url="@{/cerveja}"
 							       placeholder="Pesquisa a cerveja pelo SKU ou nome e adicione" autofocus="autofocus" >
 						</div>
-					</div>
+					</div>					
 					
-					
-					<div class="bw-tabela-cervejas  js-container-tabela-item-venda" data:valor="${valorTotal}">
+					<div class="bw-tabela-cervejas  js-container-tabela-item-venda" data:valor="${valorTotalItens}">
 						<th:block th:replace="venda/tabela-item-venda"/>						
 					</div>
 					
