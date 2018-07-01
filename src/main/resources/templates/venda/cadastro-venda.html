@@ -35,6 +35,7 @@
 		
 			<input type="hidden" id="uuid" th:field="*{uuid}"/>
 			<input type="hidden" th:field="*{codigo}"/>
+			<input type="hidden" th:field="*{usuario}"/>
 			<div class="row">
 
 				<div class="col-sm-4">
@@ -83,7 +84,7 @@
 							   placeholder="Clique na lupa e faça uma pesquisa rápida">
 						<span class="input-group-btn">
 							<button type="button" class="btn  btn-default  js-tooltip" title="Pesquisar clientes" 
-							        data-toggle="modal" data-target="#pesquisaRapidaCliente">
+							        data-toggle="modal" data-target="#pesquisaRapidaCliente" th:disabled="${venda.proibidoSalvar}">
 							        <i class="glyphicon  glyphicon-search"></i>
 							</button>
 						</span>
@@ -94,7 +95,7 @@
 					<label class="control-label" for="valorFrete">Valor Frete</label>
 					<div class="input-group">
 						<div class="input-group-addon">R$</div>
-						<input type="text" class="form-control  js-decimal" id="valorFrete" th:field="*{valorFrete}" data:valor="${valorFrete}">
+						<input type="text" class="form-control  js-decimal" th:disabled="${venda.proibidoSalvar}" id="valorFrete" th:field="*{valorFrete}" data:valor="${valorFrete}">
 					</div>
 				</div>
 							
@@ -102,7 +103,7 @@
 					<label class="control-label" for="valorDesconto">Valor Desconto</label>
 					<div class="input-group">
 						<div class="input-group-addon">R$</div>
-						<input type="text" class="form-control  js-decimal" id="valorDesconto" th:field="*{valorDesconto}" data:valor="${valorDesconto}">
+						<input type="text" class="form-control  js-decimal" th:disabled="${venda.proibidoSalvar}" id="valorDesconto" th:field="*{valorDesconto}" data:valor="${valorDesconto}">
 					</div>
 				</div>
 			
@@ -122,7 +123,7 @@
 					
 					<div class="row">
 						<div class="col-lg-12">
-							<input class="form-control  js-sku-nome-cerveja" type="text" data:url="@{/cerveja}"
+							<input class="form-control  js-sku-nome-cerveja" type="text" data:url="@{/cerveja}" th:disabled="${venda.proibidoSalvar}"
 							       placeholder="Pesquisa a cerveja pelo SKU ou nome e adicione" autofocus="autofocus" >
 						</div>
 					</div>					
@@ -138,14 +139,14 @@
 						<div class="col-sm-3" brewer:classforerror="dataEntrega">
 							<div class="form-group">
 								<label class="control-label" for="dataEntrega">Data da entrega</label>
-								<input class="form-control" type="text" id="dataEntrega" th:field="*{dataEntrega}">
+								<input class="form-control" th:disabled="${venda.proibidoSalvar}" type="text" id="dataEntrega" th:field="*{dataEntrega}">
 							</div>
 						</div>
 
 						<div class="col-sm-3">
 							<div class="form-group">
 								<label class="control-label" for="horaDaEntrega">Horário da entrega</label>
-								<input class="form-control" type="text" id="horaDaEntrega" th:field="*{horarioEntrega}">
+								<input class="form-control" th:disabled="${venda.proibidoSalvar}" type="text" id="horaDaEntrega" th:field="*{horarioEntrega}">
 							</div>
 						</div>
 					</div>
@@ -153,14 +154,14 @@
 					<div class="row">
 						<div class="form-group  col-lg-12">
 							<label class="control-label" for="observacao">Observação</label>
-							<textarea class="form-control" rows="5" id="observacao"
+							<textarea class="form-control" th:disabled="${venda.proibidoSalvar}" rows="5" id="observacao"
 								placeholder="Alguma observaação para o entregador desse pedido?" th:field="*{observacao}"></textarea>
 						</div>
 					</div>					
 				</div>
 			</div>	
 			
-			<div class="row" style="clear: both">
+			<div class="row" style="clear: both" th:if="${venda.permitidoSalvar}">
 				<div class="col-lg-12">
 					<div class="btn-group">
 						<button type="submit" class="btn  btn-primary  js-salvar-btn" data:acao="salvar">Salvar</button>
@@ -172,7 +173,7 @@
 							<li><a href="#" class="js-salvar-btn" data:acao="enviarEmail">Salvar e enviar por e-mail</a></li>
 						</ul>
 					</div>
-					<button class="btn  btn-danger">Cancelar</button>
+					<button class="btn  btn-danger  js-salvar-btn" data:acao="cancelar" th:unless="${venda.nova}">Cancelar</button>
 				</div>
 			</div>
 			

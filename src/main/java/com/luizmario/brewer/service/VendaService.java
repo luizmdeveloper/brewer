@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +19,11 @@ public class VendaService {
 	private VendaRepository vendaRepository;
 	
 	@Transactional
-	public Venda salvar(Venda venda) {
+	public Venda salvar(Venda venda) {		
+		if (!venda.isProibidoSalvar()) {
+			throw new RuntimeException("Não é permitido salvar um pedido já cancelado!");
+		}
+		
 		if (venda.isNova()) {
 			venda.setDataCriacao(LocalDateTime.now());
 		} else {
@@ -39,4 +44,11 @@ public class VendaService {
 		salvar(venda);
 	}
 
+	@PreAuthorize("#venda.usuario == principal.usuario or hasRole('CANCELAR_PEDIDO')")
+	@Transactional
+	public void cancelar(Venda venda) {
+		Venda vendaExistente = vendaRepository.findOne(venda.getCodigo());
+		vendaExistente.setStatus(StatusVenda.CANCELADA);
+		vendaRepository.save(vendaExistente);
+	}
 }

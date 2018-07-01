@@ -24,8 +24,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 @Entity
 @Table(name = "venda")
+@DynamicUpdate
 public class Venda implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -200,7 +203,6 @@ public class Venda implements Serializable {
 				.map(ItemVenda::getValorTotal)
 				.reduce(BigDecimal::add)
 				.orElse(BigDecimal.ZERO);
-		
 	}
 	
 	public void calcularValoTotal() {
@@ -210,6 +212,14 @@ public class Venda implements Serializable {
 	public Long getDiasDeCriacao() {
 		LocalDate inicio = this.dataCriacao != null ? this.dataCriacao.toLocalDate() : LocalDate.now();
 		return ChronoUnit.DAYS.between(inicio, LocalDate.now());
+	}
+	
+	public boolean isPermitidoSalvar() {
+		return !status.equals(StatusVenda.CANCELADA);
+	}
+	
+	public boolean isProibidoSalvar() {
+		return !isPermitidoSalvar();
 	}
 	
 	private BigDecimal calcularValorTotalVenda(BigDecimal valorTotalItens, BigDecimal valorFrete, BigDecimal valorDesconto) {
