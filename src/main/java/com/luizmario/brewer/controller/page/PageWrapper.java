@@ -86,7 +86,5 @@ public class PageWrapper<T> {
 		}
 		
 		return direcao;
-	}
-	
-	
+	}	
 }

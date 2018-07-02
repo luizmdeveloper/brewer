@@ -4,6 +4,7 @@
 	  xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  xmlns:brewer="http://brewer.luizmario.com.br"
+	  xmlns:data="http://www.thymeleaf.org/extras/data"
 	  layout:decorate="~{layout/dashbord}">
 <head>
 	<title>Pesquisa de estilo</title>
@@ -61,21 +62,24 @@
 							<td th:class="text-center" th:text="${estilo.codigo}"></td>					
 							<td th:text="${estilo.nome}"></td>
 							<td class="text-center">
-								<a class="btn  btn-link  btn-xs" title="Editar"> 
+								<a class="btn  btn-link  btn-xs" title="Editar" th:href="@{/estilo/{codigo}(codigo=${estilo.codigo})}"> 
 									<i class="glyphicon glyphicon-pencil"></i>
 								</a>
-								<a class="btn  btn-link  btn-xs" title="Excluir">
+								<a class="btn  btn-link  btn-xs  js-excluir-btn" href="#" title="Excluir" 
+								   data:url="@{/estilo/{codigo}(codigo=${estilo.codigo})}"
+								   data:nome-objeto="estilo"
+							       data:objeto="${estilo.nome}">
 									<i class="glyphicon glyphicon-remove"></i>
 								</a>
 							</td>
 						</tr>
 						<tr th:if="${pagina.vazia}">
-							<td colspan="7">Nenhum estilo encontrado</td>
+							<td colspan="3">Nenhum estilo encontrado</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
-			<brewer:pagination page="${pagina}"/>			
+			 <brewer:pagination page="${pagina}"/>			
 		</div>		
 	</section>
 </body>

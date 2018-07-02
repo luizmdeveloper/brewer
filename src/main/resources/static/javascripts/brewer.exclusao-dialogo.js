@@ -19,10 +19,11 @@ Brewer.ExlcusaoDialogo = (function(){
 		var botaoClicado = $(evento.currentTarget);
 		var url = botaoClicado.data('url');
 		var objeto = botaoClicado.data('objeto');
+		var nomeObjeto = botaoClicado.data('nome-objeto');
 		
 		swal({
 			title: 'Tem certeza ?',
-			text: 'Deseja realmente exlcuir a ceveja "'+ objeto +'" ?',
+			text: 'Deseja realmente exlcuir '+ nomeObjeto +' "'+ objeto +'" ?',
 			showCancelButton: true,
 			confirmButtonColor: '#DD6B55',
 			confirmButtonText: 'Sim, excluir agora!',
