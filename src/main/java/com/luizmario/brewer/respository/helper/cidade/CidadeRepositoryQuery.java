@@ -9,4 +9,6 @@ import com.luizmario.brewer.respository.filter.CidadeFilter;
 public interface CidadeRepositoryQuery {
 
 	public Page<Cidade> filtrar(CidadeFilter filtro, Pageable pageable);
+	
+	public Cidade buscarComEstado(Long codigo);
 }

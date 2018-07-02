@@ -12,12 +12,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "cidade")
+@DynamicUpdate
 public class Cidade implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -61,6 +63,10 @@ public class Cidade implements Serializable {
 	
 	public boolean temEstado() {
 		return estado != null;
+	}
+	
+	public boolean isNova() {
+		return codigo == null;
 	}
 
 	@Override

@@ -40,7 +40,6 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 import com.github.mxab.thymeleaf.extras.dataattribute.dialect.DataAttributeDialect;
 import com.google.common.cache.CacheBuilder;
 import com.luizmario.brewer.controller.CervejasController;
-import com.luizmario.brewer.controller.converter.CidadeConverter;
 import com.luizmario.brewer.controller.converter.EstadoConverter;
 import com.luizmario.brewer.controller.converter.GrupoConverter;
 import com.luizmario.brewer.session.TabelaItemSession;
@@ -102,7 +101,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 	public FormattingConversionService mvcConversionService(){
 		DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService();
 //		conversionService.addConverter(new EstiloConverter());
-		conversionService.addConverter(new CidadeConverter());
+//		conversionService.addConverter(new CidadeConverter());
 		conversionService.addConverter(new EstadoConverter());
 		conversionService.addConverter(new GrupoConverter());
 		

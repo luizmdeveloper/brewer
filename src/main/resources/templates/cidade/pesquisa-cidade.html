@@ -4,6 +4,7 @@
 	  xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  xmlns:brewer="http://brewer.luizmario.com.br"
+	  xmlns:data="http://www.thymeleaf.org/extras/data"
 	  layout:decorate="~{layout/dashbord}">
 <head>
 	<title>Pesquisa de cidade</title>
@@ -70,10 +71,13 @@
 							<td th:text="${cidade.nome}"></td>
 							<td th:text="${cidade.estado.nome}"></td>
 							<td class="text-center">
-								<a class="btn  btn-link  btn-xs" title="Editar"> 
+								<a class="btn  btn-link  btn-xs" title="Editar" th:href="@{/cidade/{codigo}(codigo=${cidade.codigo})}"> 
 									<i class="glyphicon glyphicon-pencil"></i>
 								</a>
-								<a class="btn  btn-link  btn-xs" title="Excluir">
+								<a class="btn  btn-link  btn-xs  js-excluir-btn" title="Excluir" 
+									data:url="@{/cidade/{codigo}(codigo=${cidade.codigo})}"
+							    	data:nome-objeto="cidade"
+							    	data:objeto="${cidade.nome}">
 									<i class="glyphicon glyphicon-remove"></i>
 								</a>
 							</td>

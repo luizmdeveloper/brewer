@@ -41,6 +41,17 @@ public class CidadeRepositoryImpl implements CidadeRepositoryQuery {
 		return new PageImpl<>(criteria.list(), pageable, total(filtro));
 	}
 
+	@Transactional(readOnly = true)
+	@Override
+	public Cidade buscarComEstado(Long codigo) {
+		Criteria criteria = manager.unwrap(Session.class).createCriteria(Cidade.class);
+		criteria.createAlias("estado", "e", JoinType.LEFT_OUTER_JOIN);
+		criteria.add(Restrictions.eq("codigo", codigo));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		return (Cidade) criteria.uniqueResult();
+	}
+
+
 	private Long total(CidadeFilter filtro) {
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Cidade.class);
 		adicionarFiltro(criteria, filtro);
@@ -59,5 +70,4 @@ public class CidadeRepositoryImpl implements CidadeRepositoryQuery {
 			}
 		}		
 	}
-
 }
