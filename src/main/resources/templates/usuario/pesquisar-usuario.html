@@ -115,7 +115,10 @@
 								<a class="btn  btn-link  btn-xs" title="Editar" th:href="@{/usuario/{codigo}(codigo=${usuario.codigo})}"> 
 									<i class="glyphicon glyphicon-pencil"></i>
 								</a>
-								<a class="btn  btn-link  btn-xs" title="Excluir">
+								<a class="btn  btn-link  btn-xs  js-excluir-btn" title="Excluir" th:if="${#authentication.principal.usuario.codigo != usuario.codigo}"
+								   data:url="@{/usuario/{codigo}(codigo=${usuario.codigo})}"
+								   data:nome-objeto="usuário"
+							       data:objeto="${usuario.nome}">
 									<i class="glyphicon glyphicon-remove"></i>
 								</a>
 							</td>

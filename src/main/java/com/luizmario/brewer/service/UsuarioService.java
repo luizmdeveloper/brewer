@@ -2,6 +2,8 @@ package com.luizmario.brewer.service;
 
 import java.util.Optional;
 
+import javax.persistence.PersistenceException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,7 @@ import com.luizmario.brewer.model.Usuario;
 import com.luizmario.brewer.respository.UsuarioRepository;
 import com.luizmario.brewer.service.execption.EmailUsuarioJaCadastradoException;
 import com.luizmario.brewer.service.execption.SenhaUsuarioNaoPreenchidaException;
+import com.luizmario.brewer.service.execption.UsuarioComVendaCadastradaException;
 
 @Service
 public class UsuarioService {
@@ -47,6 +50,17 @@ public class UsuarioService {
 	@Transactional
 	public void alterarStauts(Long[] codigos, StatusUsuario status) {
 		status.executar(codigos, usuarioRepository);
+	}
+
+	@Transactional
+	public void apagar(Usuario usuario) {
+		try {
+			usuarioRepository.delete(usuario);
+			usuarioRepository.flush();
+		} catch (PersistenceException e) {
+			throw new UsuarioComVendaCadastradaException("Impossível excluir usuario, devido ter venda cadastrada!");
+		}
+		
 	}
 
 }
