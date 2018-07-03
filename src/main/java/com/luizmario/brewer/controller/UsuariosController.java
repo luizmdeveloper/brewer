@@ -44,7 +44,7 @@ public class UsuariosController {
 	
 	@RequestMapping("/novo")
 	public ModelAndView novo(Usuario usuario){
-		ModelAndView mv = new ModelAndView("usuario/cadastro-usuarios");		
+		ModelAndView mv = new ModelAndView("usuario/cadastro-usuario");		
 		mv.addObject("grupos", grupoRepository.findAll());
 		
 		return mv;
@@ -72,7 +72,7 @@ public class UsuariosController {
 	
 	@GetMapping
 	public ModelAndView buscar(UsuarioFilter usuarioFilter, @PageableDefault(size = 5) Pageable page, HttpServletRequest httpServletRequest) {
-		ModelAndView mv = new ModelAndView("usuario/pesquisar-usuarios");
+		ModelAndView mv = new ModelAndView("usuario/pesquisar-usuario");
 		mv.addObject("grupos", grupoRepository.findAll());
 
 		PageWrapper<Usuario> pagina = new PageWrapper<>(usuarioRepository.filtar(usuarioFilter, page), httpServletRequest);		
