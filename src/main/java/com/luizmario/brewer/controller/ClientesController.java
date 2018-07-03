@@ -14,8 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,6 +31,7 @@ import com.luizmario.brewer.respository.ClienteRepository;
 import com.luizmario.brewer.respository.EstadoRepository;
 import com.luizmario.brewer.respository.filter.ClienteFilter;
 import com.luizmario.brewer.service.ClienteService;
+import com.luizmario.brewer.service.execption.ClienteComVendaCadastradaException;
 import com.luizmario.brewer.service.execption.CnpjCpfJaCadastradoException;
 
 @Controller
@@ -46,7 +49,7 @@ public class ClientesController {
 	
 	@GetMapping
 	public ModelAndView buscar(ClienteFilter clienteFilter,BindingResult result, @PageableDefault(size = 5) Pageable page, HttpServletRequest httpServletRequest){
-		ModelAndView mv = new ModelAndView("cliente/pesquisa-clientes");
+		ModelAndView mv = new ModelAndView("cliente/pesquisa-cliente");
 		
 		PageWrapper<Cliente> pagina = new PageWrapper<>(clienteRepository.filtrar(clienteFilter, page), httpServletRequest);		
 		mv.addObject("pagina", pagina);
@@ -56,14 +59,14 @@ public class ClientesController {
 
 	@RequestMapping("/novo")
 	public ModelAndView novo(Cliente cliente){
-		ModelAndView mv = new ModelAndView("cliente/cadastro-clientes");
+		ModelAndView mv = new ModelAndView("cliente/cadastro-cliente");
 		mv.addObject("tipoPessoa", TipoPessoa.values());
 		mv.addObject("estados", estado.findAll());
 		
 		return mv;
 	}
 	
-	@PostMapping("/novo")
+	@PostMapping(value= {"/novo", "{\\d+}"})
 	public ModelAndView salvar (@Valid Cliente cliente, BindingResult result, Model model, RedirectAttributes attributes){
 		if (result.hasErrors()){
 			return novo(cliente);
@@ -76,8 +79,25 @@ public class ClientesController {
 			return novo(cliente);
 		}
 		
-		attributes.addFlashAttribute("mensagem", "Cliente cadastrada com sucesso!");		
+		attributes.addFlashAttribute("mensagem", "Cliente salvo com sucesso!");		
 		return new ModelAndView("redirect:/cliente/novo");
+	}
+	
+	@GetMapping("{codigo}")
+	public ModelAndView editar(@PathVariable("codigo") Cliente cliente) {
+		ModelAndView mv = novo(cliente);
+		mv.addObject(cliente);
+		return mv;
+	}
+	
+	@DeleteMapping("{codigo}")
+	public @ResponseBody ResponseEntity<?> apagar(@PathVariable("codigo") Cliente cliente){
+		try {
+			clienteService.apagar(cliente);
+		} catch (ClienteComVendaCadastradaException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		return ResponseEntity.ok().build();
 	}
 	
 	@RequestMapping(consumes = { MediaType.APPLICATION_JSON_VALUE })
