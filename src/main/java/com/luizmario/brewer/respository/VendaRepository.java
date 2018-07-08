@@ -7,5 +7,7 @@ import com.luizmario.brewer.respository.helper.venda.VendaRepositoryQuery;
 
 public interface VendaRepository extends JpaRepository<Venda, Long>, VendaRepositoryQuery {
 
+	
+
 
 }
