@@ -75,7 +75,7 @@ public class VendaRepositoryImpl implements VendaRepositoryQuery {
 	public BigDecimal valorTotalNoMes() {
 		Optional<BigDecimal> optional = Optional.ofNullable(
 					manager.createQuery("select sum(valorTotal) from Venda where month(dataCriacao) = :mes and status = :status", BigDecimal.class)
-						.setParameter("mes", MonthDay.now().getMonthValue())
+					 	.setParameter("mes", MonthDay.now().getMonthValue())
 						.setParameter("status", StatusVenda.EMITIDA)
 						.getSingleResult()
 				);
