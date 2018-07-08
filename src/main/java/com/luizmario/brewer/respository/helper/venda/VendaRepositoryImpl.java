@@ -1,10 +1,12 @@
 package com.luizmario.brewer.respository.helper.venda;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.MonthDay;
 import java.time.Year;
+import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
@@ -23,6 +25,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import com.luizmario.brewer.dto.VendaMes;
 import com.luizmario.brewer.model.StatusVenda;
 import com.luizmario.brewer.model.TipoPessoa;
 import com.luizmario.brewer.model.Venda;
@@ -92,6 +95,27 @@ public class VendaRepositoryImpl implements VendaRepositoryQuery {
 				);
 		return optional.orElse(BigDecimal.ZERO);
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<VendaMes> totalPorMes() {
+		List<VendaMes> vendasDoMes = manager.createNativeQuery("Vendas.totalPorMes").getResultList();
+		
+		LocalDate hoje = LocalDate.now();
+		
+		for(int i = 1; i <= 6; i++) {
+			String anoMesAtual = String.format("%d/%02d", hoje.getYear(), hoje.getMonthValue());
+			
+			boolean anoMesPresente = vendasDoMes.stream().filter(v -> v.getMes().equals(anoMesAtual)).findAny().isPresent();
+			if (!anoMesPresente) {
+				vendasDoMes.add(i-1, new VendaMes(anoMesAtual, 0));
+			}
+			
+			hoje.minusMonths(i);
+		}
+		
+		return vendasDoMes;
+	}	
 	
 	private Long total(VendaFilter filtro) {
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Venda.class);

@@ -1,5 +1,6 @@
 package com.luizmario.brewer.controller;
 
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,11 +21,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.luizmario.brewer.controller.page.PageWrapper;
 import com.luizmario.brewer.controller.validator.VendaValidator;
+import com.luizmario.brewer.dto.VendaMes;
 import com.luizmario.brewer.mailer.Mailer;
 import com.luizmario.brewer.model.Cerveja;
 import com.luizmario.brewer.model.ItemVenda;
@@ -178,6 +181,11 @@ public class VendaController {
 		
 		attributes.addFlashAttribute("mensagem", "Venda cancelada com sucesso!");
 		return new ModelAndView("redirect:/venda/"+ venda.getCodigo());
+	}
+	
+	@GetMapping("/totalPorMes")
+	public @ResponseBody List<VendaMes> buscarTotalPorMes(){
+		return vendaRepository.totalPorMes();
 	}
 	
 	
