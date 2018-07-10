@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.luizmario.brewer.dto.CervejaDTO;
+import com.luizmario.brewer.dto.ValoresEstoque;
 import com.luizmario.brewer.model.Cerveja;
 import com.luizmario.brewer.respository.filter.CervejaFilter;
 
@@ -14,4 +15,6 @@ public interface CervejasRepositoryQuery {
 	public Page<Cerveja> filtar(CervejaFilter filtro, Pageable pageable);
 	
 	public List<CervejaDTO> buscarPorSkuOuNome(String skuOuNome);
+	
+	public ValoresEstoque buscarDadosEstoque();
 }

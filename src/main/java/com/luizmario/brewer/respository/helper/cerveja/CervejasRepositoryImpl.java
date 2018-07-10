@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.luizmario.brewer.dto.CervejaDTO;
+import com.luizmario.brewer.dto.ValoresEstoque;
 import com.luizmario.brewer.model.Cerveja;
 import com.luizmario.brewer.respository.filter.CervejaFilter;
 import com.luizmario.brewer.respository.paginacao.PaginacaoUtil;
@@ -42,6 +43,13 @@ public class CervejasRepositoryImpl implements CervejasRepositoryQuery {
 		return new PageImpl<>(criteria.list(), page, total(filtro));
 	}
 
+	@Override
+	public ValoresEstoque buscarDadosEstoque() {
+		String jpql = " select new com.luizmario.brewer.dto.ValoresEstoque(sum(valor) * count(quantidadeEstoque), count(quantidadeEstoque)) from Cerveja ";
+		return manager.createQuery(jpql, ValoresEstoque.class).getSingleResult();
+	}
+	
+	
 	private Long total(CervejaFilter filtro) {
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Cerveja.class);
 		adicionarFiltro(filtro, criteria);
