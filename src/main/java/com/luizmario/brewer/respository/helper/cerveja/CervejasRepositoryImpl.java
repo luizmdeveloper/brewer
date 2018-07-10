@@ -45,7 +45,7 @@ public class CervejasRepositoryImpl implements CervejasRepositoryQuery {
 
 	@Override
 	public ValoresEstoque buscarDadosEstoque() {
-		String jpql = " select new com.luizmario.brewer.dto.ValoresEstoque(sum(valor) * count(quantidadeEstoque), count(quantidadeEstoque)) from Cerveja ";
+		String jpql = " select new com.luizmario.brewer.dto.ValoresEstoque(sum(valor) * sum(quantidadeEstoque), sum(quantidadeEstoque)) from Cerveja ";
 		return manager.createQuery(jpql, ValoresEstoque.class).getSingleResult();
 	}
 	

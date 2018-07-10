@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.luizmario.brewer.model.StatusVenda;
 import com.luizmario.brewer.model.Venda;
 import com.luizmario.brewer.respository.VendaRepository;
+import com.luizmario.brewer.service.event.venda.VendaEvent;
 
 @Service
 public class VendaService {
@@ -18,9 +20,12 @@ public class VendaService {
 	@Autowired
 	private VendaRepository vendaRepository;
 	
+	@Autowired
+	private ApplicationEventPublisher publisher;
+	
 	@Transactional
 	public Venda salvar(Venda venda) {		
-		if (!venda.isProibidoSalvar()) {
+		if (venda.isProibidoSalvar()) {
 			throw new RuntimeException("Não é permitido salvar um pedido já cancelado!");
 		}
 		
@@ -42,6 +47,8 @@ public class VendaService {
 	public void emitir(Venda venda) {
 		venda.setStatus(StatusVenda.EMITIDA);
 		salvar(venda);
+		
+		publisher.publishEvent(new VendaEvent(venda));
 	}
 
 	@PreAuthorize("#venda.usuario == principal.usuario or hasRole('CANCELAR_PEDIDO')")
