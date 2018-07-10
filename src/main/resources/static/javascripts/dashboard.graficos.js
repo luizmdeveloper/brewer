@@ -16,7 +16,7 @@ Brewer.GraficosVendaProMes = (function(){
 	
 	function onRenderizarGraficoPorMes(dados){
 		var meses = [];
-		var valoresProMes = [];
+		var valoresPorMes = [];
 		
 		dados.forEach(function(obj){
 			meses.unshift(obj.mes);

@@ -99,7 +99,7 @@ public class VendaRepositoryImpl implements VendaRepositoryQuery {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<VendaMes> totalPorMes() {
-		List<VendaMes> vendasDoMes = manager.createNativeQuery("Vendas.totalPorMes").getResultList();
+		List<VendaMes> vendasDoMes = manager.createNamedQuery("Vendas.totalPorMes").getResultList();
 		
 		LocalDate hoje = LocalDate.now();
 		
@@ -111,7 +111,7 @@ public class VendaRepositoryImpl implements VendaRepositoryQuery {
 				vendasDoMes.add(i-1, new VendaMes(anoMesAtual, 0));
 			}
 			
-			hoje.minusMonths(i);
+			hoje = hoje.minusMonths(1);
 		}
 		
 		return vendasDoMes;

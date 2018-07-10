@@ -6,7 +6,7 @@
 	
 	<named-native-query name="Vendas.totalPorMes" result-set-mapping="totalPorMesMapping">
 		<query>
-			select date_format(data_criacao, '%Y/%m') mes 
+			select date_format(data_criacao, '%Y/%m') mes
 				 , count(*) total
   			from venda
   			where data_criacao > DATE_SUB(NOW(), INTERVAL 6 MONTH)
