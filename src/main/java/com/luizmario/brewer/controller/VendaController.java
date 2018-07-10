@@ -28,6 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.luizmario.brewer.controller.page.PageWrapper;
 import com.luizmario.brewer.controller.validator.VendaValidator;
 import com.luizmario.brewer.dto.VendaMes;
+import com.luizmario.brewer.dto.VendaOrigem;
 import com.luizmario.brewer.mailer.Mailer;
 import com.luizmario.brewer.model.Cerveja;
 import com.luizmario.brewer.model.ItemVenda;
@@ -188,6 +189,10 @@ public class VendaController {
 		return vendaRepository.totalPorMes();
 	}
 	
+	@GetMapping("/totalPorOrigem")
+	public @ResponseBody List<VendaOrigem> buscarPorOrigem(){
+		return vendaRepository.totalPorOrigem();
+	}
 	
 	private void setUuid(Venda venda) {
 		if (StringUtils.isEmpty(venda.getUuid())) {
